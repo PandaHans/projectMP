@@ -18,43 +18,20 @@ class Gebruiker implements Serializable {
         this.inlogNaam = inlogNaam;
     }
 
-    public String getInlogNaam() {
-        return inlogNaam;
-    }
-
-    public void setInlogNaam(String inlogNaam) {
-        this.inlogNaam = inlogNaam;
-    }
-
-    public void setWerkgevers(ArrayList<Werkgever> werkgevers) {
-        this.werkgevers = werkgevers;
-    }
-
-    public void setDagen(ArrayList<Dag> dagen) {
-        this.dagen = dagen;
-    }
-
     public ArrayList<Project> getProjecten() {
         return projecten;
-    }
-
-    public void setProjecten(ArrayList<Project> projecten) {
-        this.projecten = projecten;
     }
 
     public ArrayList<Werkgever> getWerkgevers() {
         return werkgevers;
     }
 
-    public String getWerkgeverNaam(int i){
-        return werkgevers.get(i).getNaam();
-    }
 
     public void addWerkgever(Werkgever werkgever){
         // kijk of werkgever al bestaat
         boolean exists = false;
-        for (Werkgever existingWerkgever : werkgevers) {
-            if (existingWerkgever.getNaam().equals(werkgever.getNaam())) {
+        for (Werkgever bestaandeWerkgever : werkgevers) {
+            if (bestaandeWerkgever.getNaam().equals(werkgever.getNaam())) {
                 exists = true;
                 break;
             }
@@ -88,16 +65,20 @@ class Gebruiker implements Serializable {
         return dagen;
     }
 
-    public Dag getDag(int i){
-        return dagen.get(i);
-    }
-
     public void addDag(Dag dag){
         dagen.add(dag);
     }
 
     public boolean isGebruiker(String inlogNaam){
         return this.inlogNaam.equals(inlogNaam);
+    }
+
+    public String getWerkgeverNaam(int i){
+        return werkgevers.get(i).getNaam();
+    }
+
+    public String getProjectNaam(int i) {
+        return projecten.get(i).getNaam();
     }
 
     public Werkgever selectWerkgever(Scanner scanner) {
@@ -108,7 +89,7 @@ class Gebruiker implements Serializable {
 
         System.out.print("Maak een keuze: ");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // consume newline character
+        scanner.nextLine();
 
         if (choice >= 0 && choice < getWerkgevers().size()) {
             return getWerkgevers().get(choice);
@@ -136,13 +117,10 @@ class Gebruiker implements Serializable {
         }
     }
 
-
-    public String getProjectNaam(int i) {
-        return projecten.get(i).getNaam();
-    }
 }
 
 class Werkgever implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String naam;
     private float kiloMeters;
@@ -188,25 +166,21 @@ class Project implements Serializable {
 }
 
 class Dag implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private transient DateTimeFormatter dtf;
     private float gewerkteUren;
     private String omschrijving;
-    private transient LocalDateTime now;
     LocalDate savedDate;
-    Project project;
-    Werkgever werkgever;
 
     public LocalDate getSavedDate() {
         return savedDate;
     }
 
-    public Dag(float gewerkteUren, String omschrijving, LocalDate savedDate, Werkgever werkgever, Project project ) {
+    public Dag(float gewerkteUren, String omschrijving, LocalDate savedDate) {
         this.gewerkteUren = gewerkteUren;
         this.omschrijving = omschrijving;
         this.savedDate = savedDate;
-        this.werkgever = werkgever;
-        this.project = project;
+
     }
 
     public float getGewerkteUren() {
@@ -216,49 +190,38 @@ class Dag implements Serializable {
     public String getOmschrijving() {
         return omschrijving;
     }
-
-    private void initializeDateTime() {
-        this.dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        this.now = LocalDateTime.now();
-    }
-
-    @Serial
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        ois.defaultReadObject(); // Perform default deserialization
-        initializeDateTime(); // Initialize transient fields after deserialization
-    }
 }
 
 abstract class Factuur {
     protected ArrayList<Dag> dagen = new ArrayList<>();
     protected ArrayList<Werkgever> werkgevers = new ArrayList<>();
+    protected ArrayList<Project> projecten = new ArrayList<>();
 
-    public Factuur(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers) {
+    public Factuur(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers, ArrayList<Project> projecten) {
         this.dagen.addAll(dagen);
         this.werkgevers.addAll(werkgevers);
-    }
-
-    public ArrayList<Dag> getDagen() {
-        return dagen;
+        this.projecten.addAll(projecten);
     }
 }
 
 class MaandOverzicht extends Factuur {
-    public MaandOverzicht(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers) {
-        super(dagen, werkgevers);
+    public MaandOverzicht(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers, ArrayList<Project> projecten) {
+        super(dagen, werkgevers, projecten);
     }
 
-    public void printDagenVanDeMaand(Gebruiker gebruiker,int jaar, int maand) {
-        System.out.println("Maandoverzicht voor " + jaar + "-" + maand);
+    public void printDagenVanDeMaand(Gebruiker gebruiker,int jaar, int maand, Werkgever werkgever, Project project) {
+        System.out.printf("Maandoverzicht voor %d-%d \n Werkgever: %s \n Project: %s%n", jaar, maand, werkgever.getNaam(), project.getNaam());
 
         float totaalGewerkteUren = 0;
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar && date.getMonthValue() == maand) {
+                System.out.println("--------------------------------------------");
                 System.out.println("Datum: " + date);
                 System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
                 System.out.println("Omschrijving: " + dag.getOmschrijving());
-                System.out.println();
+                System.out.println("Uurloon: " + project.getUurLoon());
+                System.out.println("--------------------------------------------");
                 totaalGewerkteUren += dag.getGewerkteUren();
             }
         }
@@ -273,14 +236,14 @@ class MaandOverzicht extends Factuur {
 }
 
 class JaarOverzicht extends Factuur {
-    public JaarOverzicht(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers) {
-        super(dagen, werkgevers);
+    public JaarOverzicht(ArrayList<Dag> dagen, ArrayList<Werkgever> werkgevers, ArrayList<Project> projecten) {
+        super(dagen, werkgevers, projecten);
     }
 
     public void printDagenVanHetJaar(Gebruiker gebruiker, int jaar) {
         System.out.println("Jaaroverzicht voor " + jaar);
 
-        float totalWorkedHours = 0;
+        float totaalGewerkteUren = 0;
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar) {
@@ -288,16 +251,16 @@ class JaarOverzicht extends Factuur {
                 System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
                 System.out.println("Omschrijving: " + dag.getOmschrijving());
                 System.out.println();
-                totalWorkedHours += dag.getGewerkteUren();
+                totaalGewerkteUren += dag.getGewerkteUren();
             }
         }
 
-        float hourlyWage = gebruiker.getProjecten().isEmpty() ? 0 : gebruiker.getProjecten().get(0).getUurLoon();
+        float uurLoon = gebruiker.getProjecten().isEmpty() ? 0 : gebruiker.getProjecten().get(0).getUurLoon();
 
-        float totalEarned = totalWorkedHours * hourlyWage;
+        float totaalVerdient = totaalGewerkteUren * uurLoon;
 
-        System.out.println("Totaal aantal gewerkte uren: " + totalWorkedHours);
-        System.out.println("Totaal verdient deze maand: " + totalEarned);
+        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
+        System.out.println("Totaal verdient deze maand: " + totaalVerdient);
     }
 }
 
@@ -340,7 +303,8 @@ class Start{
             System.out.println("1. Voeg dagen toe");
             System.out.println("2. Voeg werkgever toe");
             System.out.println("3. Voeg project toe");
-            System.out.println("4. Genereen een maand Factuur");
+            System.out.println("4. Genereer een maand overzicht");
+            System.out.println("5. Genereer een jaar overzicht");
 
             System.out.println("0. Exit");
 
@@ -350,9 +314,6 @@ class Start{
             switch (choice) {
                 case "1":
                     //Voeg dag toe
-                    Werkgever werkgever = gebruiker.selectWerkgever(scanner);
-                    Project project = gebruiker.selectProject(scanner);
-
                     System.out.println("Hoeveel uren heb je gewerkt: ");
                     float gewerkteUren = scanner.nextFloat();
                     scanner.nextLine();
@@ -364,7 +325,7 @@ class Start{
                     String inputDate = scanner.nextLine();
                     LocalDate savedDate = LocalDate.parse(inputDate);
 
-                    gebruiker.addDag(new Dag(gewerkteUren, omschrijving, savedDate, werkgever, project));
+                    gebruiker.addDag(new Dag(gewerkteUren, omschrijving, savedDate));
 
                     data.writeData(gebruiker);
                     break;
@@ -384,7 +345,7 @@ class Start{
 
                 case "3":
                     // Voeg Project toe
-                    System.out.println("Voer het uw project naam in: ");
+                    System.out.println("Voer het project naam in: ");
                     String projectNaam = scanner.nextLine();
 
                     System.out.println("Heb je een uurloon of een vastprijs");
@@ -415,7 +376,11 @@ class Start{
                     break;
 
                 case "4":
-                    MaandOverzicht maandOverzicht = new MaandOverzicht(gebruiker.getDagen(), gebruiker.getWerkgevers());
+                    MaandOverzicht maandOverzicht = new MaandOverzicht(gebruiker.getDagen(), gebruiker.getWerkgevers(), gebruiker.getProjecten());
+
+                    Werkgever werkgever = gebruiker.selectWerkgever(scanner);
+                    Project project = gebruiker.selectProject(scanner);
+
 
                     System.out.println("Voer een maand in: ");
                     int maand = scanner.nextInt();
@@ -423,16 +388,18 @@ class Start{
                     System.out.println("Voer een jaar in: ");
                     int jaar = scanner.nextInt();
 
-                    maandOverzicht.printDagenVanDeMaand(gebruiker,jaar, maand);
+                    maandOverzicht.printDagenVanDeMaand(gebruiker, jaar, maand, werkgever ,project);
+                    break;
 
 
                 case "5":
-                    JaarOverzicht jaarOverzicht = new JaarOverzicht(gebruiker.getDagen(), gebruiker.getWerkgevers());
+                    JaarOverzicht jaarOverzicht = new JaarOverzicht(gebruiker.getDagen(), gebruiker.getWerkgevers(), gebruiker.getProjecten());
 
                     System.out.println("Voer een jaar in: ");
                     int jaar1 = scanner.nextInt();
 
                     jaarOverzicht.printDagenVanHetJaar(gebruiker,jaar1);
+                    break;
 
                 case "0":
                     // Exit
