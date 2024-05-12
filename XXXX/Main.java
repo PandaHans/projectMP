@@ -135,13 +135,18 @@ class Project implements Serializable {
     }
 
 
+    public Boolean getUurLoonTORF() {
+        return uurLoonTORF;
+    }
+    public float getVastePrijs() {
+        return vastePrijs;
+    }
     public ArrayList<Dag> getDagen() {
         return dagen;
     }
     public void addDag(Dag dag){
         dagen.add(dag);
     }
-
     public float getUurLoon() {
         return uurLoon;
     }
@@ -181,13 +186,30 @@ abstract class Factuur {
         this.werkgevers.addAll(werkgevers);
     }
 
-    static void uurLoon(Werkgever werkgever, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = werkgever.getProjecten().isEmpty() ? 0 : werkgever.getProjecten().get(0).getUurLoon();
-        float totaalVerdiend = totaalGewerkteUren * uurLoon;
+    static void printGegevens(LocalDate date, Dag dag, Werkgever werkgever, Project project){
+        System.out.println("--------------------------------------------");
+        System.out.println("Werkgever en project: " + werkgever.getNaam() + ", " + project.getNaam());
+        System.out.println("Datum: " + date);
+        System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
+        System.out.println("Omschrijving: " + dag.getOmschrijving());
+        System.out.println("--------------------------------------------");
+    }
+
+    static void uurLoon(Project project, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
+        float uurLoon = project.getUurLoon();
+        float totaalVerdient;
+        if (project.getUurLoonTORF() == null){
+            totaalVerdient = totaalGewerkteUren * uurLoon;
+            System.out.println("uurloon");
+        } else {
+            totaalVerdient = project.getVastePrijs();
+            System.out.println("vasteprijs");
+        }
+
 
         System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
         System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
-        System.out.println("Totaal verdiend: " + totaalVerdiend);
+        System.out.println("Totaal verdient: " + totaalVerdient);
         System.out.println();
     }
 }
@@ -198,8 +220,7 @@ class MaandOverzicht extends Factuur {
     }
 
     public void printDagenVanDeMaand(int jaar, int maand, Werkgever werkgever, Project project) {
-        System.out.printf("Maandoverzicht voor %d-%d \n Werkgever: %s", jaar, maand, werkgever.getNaam());
-        System.out.println();
+        System.out.printf("Maandoverzicht voor %d-%d \nWerkgever: %s Project: %s", jaar, maand, werkgever.getNaam(), project.getNaam());
 
         float totaalGewerkteUren = 0;
         float totaalGeredenKiloMeters = 0;
@@ -207,17 +228,13 @@ class MaandOverzicht extends Factuur {
         for (Dag dag : project.getDagen()) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar && date.getMonthValue() == maand) {
-                System.out.println("--------------------------------------------");
-                System.out.println("Datum: " + date);
-                System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
-                System.out.println("Omschrijving: " + dag.getOmschrijving());
-                System.out.println("--------------------------------------------");
+                printGegevens(date, dag, werkgever, project);
 
                 totaalGeredenKiloMeters += werkgever.getKiloMeters();
                 totaalGewerkteUren += dag.getGewerkteUren();
             }
         }
-        uurLoon(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
+        uurLoon(project, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
 }
 
@@ -235,22 +252,18 @@ class JaarOverzicht extends Factuur {
         for (Dag dag : project.getDagen()) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar) {
-                System.out.println("--------------------------------------------");
-                System.out.println("Datum: " + date);
-                System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
-                System.out.println("Omschrijving: " + dag.getOmschrijving());
-                System.out.println("--------------------------------------------");
+                printGegevens(date, dag, werkgever, project);
 
                 totaalGeredenKiloMeters += werkgever.getKiloMeters();
                 totaalGewerkteUren += dag.getGewerkteUren();
             }
         }
-        MaandOverzicht.uurLoon(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
+        uurLoon(project, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
 }
 
 class Data {
-    // Read from file
+    // lees
     public Gebruiker getData() {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"))) {
             Gebruiker gebruiker = (Gebruiker) input.readObject();
@@ -264,7 +277,7 @@ class Data {
         return null;
     }
 
-    // Write to file
+    // schrijf
     public void writeData(Gebruiker gebruiker) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("data.dat"))) {
             output.writeObject(gebruiker);
@@ -353,18 +366,18 @@ class Start{
                             System.out.print("Voer uurloon in: ");
                             uurloon = scanner.nextFloat();
                             werkgever1.addProject( new Project(projectNaam, uurloon));
+                            data.writeData(gebruiker);
                             break;
                         case "2":
                             System.out.print("Voer vastprijs in: ");
                             vastprijs = scanner.nextFloat();
                             werkgever1.addProject(new Project(projectNaam, vastprijs, false));
+                            data.writeData(gebruiker);
                             break;
                         default:
                             System.out.println("Error: Voer 1 of 2 in");
                             break;
                     }
-                        data.writeData(gebruiker);
-                    break;
 
                 case "4":
                     MaandOverzicht maandOverzicht = new MaandOverzicht(gebruiker.getWerkgevers());
@@ -434,3 +447,5 @@ public class Main {
         }
     }
 }
+
+//nooit meer nederlands project
