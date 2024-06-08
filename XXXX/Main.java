@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 
 class Gebruiker implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
     private String inlogNaam;
@@ -39,6 +40,7 @@ class Gebruiker implements Serializable {
     public String getWerkgeverNaam(int i){
         return werkgevers.get(i).getNaam();
     }
+
     public Werkgever selectWerkgever(Scanner scanner) {
         System.out.println("Selecteer een werkgever:");
         for (int i = 0; i < getWerkgevers().size(); i++) {
@@ -57,7 +59,6 @@ class Gebruiker implements Serializable {
         }
     }
 }
-
 class Werkgever implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -116,7 +117,6 @@ class Werkgever implements Serializable {
         return naam;
     }
 }
-
 class Project implements Serializable {
     private String naam;
     private Boolean uurLoonTORF;
@@ -135,18 +135,13 @@ class Project implements Serializable {
     }
 
 
-    public Boolean getUurLoonTORF() {
-        return uurLoonTORF;
-    }
-    public float getVastePrijs() {
-        return vastePrijs;
-    }
     public ArrayList<Dag> getDagen() {
         return dagen;
     }
     public void addDag(Dag dag){
         dagen.add(dag);
     }
+
     public float getUurLoon() {
         return uurLoon;
     }
@@ -154,7 +149,6 @@ class Project implements Serializable {
         return naam;
     }
 }
-
 class Dag implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -179,92 +173,34 @@ class Dag implements Serializable {
     }
 }
 
-abstract class Factuur {
-    protected ArrayList<Werkgever> werkgevers = new ArrayList<>();
+// Interface Segregation Principle: Separate interfaces for different functionalities
+interface WerkgeverFactory {
+    Werkgever createWerkgever(String naam, float kilometers);
+}
+interface ProjectFactory {
+    Project createProject(String naam, float uurLoon);
+    Project createProject(String naam, float vastePrijs, boolean uurLoonTORF);
+}
 
-    public Factuur(ArrayList<Werkgever> werkgevers) {
-        this.werkgevers.addAll(werkgevers);
+// Factory Method Pattern: Concrete factory implementations
+class ConcreteWerkgeverFactory implements WerkgeverFactory {
+    public Werkgever createWerkgever(String naam, float kilometers) {
+        return new Werkgever(naam, kilometers);
+    }
+}
+class ConcreteProjectFactory implements ProjectFactory {
+    public Project createProject(String naam, float uurLoon) {
+        return new Project(naam, uurLoon);
     }
 
-    static void printGegevens(LocalDate date, Dag dag, Werkgever werkgever, Project project){
-        System.out.println("--------------------------------------------");
-        System.out.println("Werkgever en project: " + werkgever.getNaam() + ", " + project.getNaam());
-        System.out.println("Datum: " + date);
-        System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
-        System.out.println("Omschrijving: " + dag.getOmschrijving());
-        System.out.println("--------------------------------------------");
-    }
-
-    static void uurLoon(Project project, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = project.getUurLoon();
-        float totaalVerdient;
-        if (project.getUurLoonTORF() == null){
-            totaalVerdient = totaalGewerkteUren * uurLoon;
-            System.out.println("uurloon");
-        } else {
-            totaalVerdient = project.getVastePrijs();
-            System.out.println("vasteprijs");
-        }
-
-
-        System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
-        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
-        System.out.println("Totaal verdient: " + totaalVerdient);
-        System.out.println();
+    public Project createProject(String naam, float vastePrijs, boolean uurLoonTORF) {
+        return new Project(naam, vastePrijs, uurLoonTORF);
     }
 }
 
-class MaandOverzicht extends Factuur {
-    public MaandOverzicht(ArrayList<Werkgever> werkgevers) {
-        super(werkgevers);
-    }
-
-    public void printDagenVanDeMaand(int jaar, int maand, Werkgever werkgever, Project project) {
-        System.out.printf("Maandoverzicht voor %d-%d \nWerkgever: %s Project: %s", jaar, maand, werkgever.getNaam(), project.getNaam());
-
-        float totaalGewerkteUren = 0;
-        float totaalGeredenKiloMeters = 0;
-
-        for (Dag dag : project.getDagen()) {
-            LocalDate date = dag.getSavedDate();
-            if (date.getYear() == jaar && date.getMonthValue() == maand) {
-                printGegevens(date, dag, werkgever, project);
-
-                totaalGeredenKiloMeters += werkgever.getKiloMeters();
-                totaalGewerkteUren += dag.getGewerkteUren();
-            }
-        }
-        uurLoon(project, totaalGewerkteUren, totaalGeredenKiloMeters);
-    }
-}
-
-class JaarOverzicht extends Factuur {
-    public JaarOverzicht(ArrayList<Werkgever> werkgevers) {
-        super(werkgevers);
-    }
-
-    public void printDagenVanHetJaar(int jaar, Werkgever werkgever, Project project) {
-        System.out.printf("Jaaroverzicht voor %d \n Werkgever: %s Project: %s", jaar , werkgever.getNaam(), project.getNaam());
-
-        float totaalGewerkteUren = 0;
-        float totaalGeredenKiloMeters = 0;
-
-        for (Dag dag : project.getDagen()) {
-            LocalDate date = dag.getSavedDate();
-            if (date.getYear() == jaar) {
-                printGegevens(date, dag, werkgever, project);
-
-                totaalGeredenKiloMeters += werkgever.getKiloMeters();
-                totaalGewerkteUren += dag.getGewerkteUren();
-            }
-        }
-        uurLoon(project, totaalGewerkteUren, totaalGeredenKiloMeters);
-    }
-}
-
-class Data {
-    // lees
-    public Gebruiker getData() {
+// Single Responsibility Principle: Separate class for handling data persistence
+class DataReader {
+    public Gebruiker readData() {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"))) {
             Gebruiker gebruiker = (Gebruiker) input.readObject();
             System.out.println("Data gelezen");
@@ -276,8 +212,8 @@ class Data {
         }
         return null;
     }
-
-    // schrijf
+}
+class DataWriter{
     public void writeData(Gebruiker gebruiker) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("data.dat"))) {
             output.writeObject(gebruiker);
@@ -290,12 +226,71 @@ class Data {
     }
 }
 
-class Start{
-    Scanner scanner = new Scanner(System.in);
-    Data data = new Data();
+// Abstract class Overzicht
+abstract class Overzicht {
+    public void uurLoon(Werkgever werkgever, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
+        float uurLoon = werkgever.getProjecten().isEmpty() ? 0 : werkgever.getProjecten().getFirst().getUurLoon();
+        float totaalVerdiend = totaalGewerkteUren * uurLoon;
 
+        System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
+        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
+        System.out.println("Totaal verdiend: " + totaalVerdiend);
+        System.out.println();
+    }
+    public void printOverzicht(int jaar, int maand, Werkgever werkgever, Project project) {
+        System.out.printf("Overzicht voor %d-%d \n Werkgever: %s", jaar, maand, werkgever.getNaam());
+        System.out.println();
 
-    public void startProgram(Gebruiker gebruiker){
+        float totaalGewerkteUren = 0;
+        float totaalGeredenKiloMeters = 0;
+
+        for (Dag dag : project.getDagen()) {
+            LocalDate date = dag.getSavedDate();
+            if (date.getYear() == jaar && (maand == -1 || date.getMonthValue() == maand)) {
+                System.out.println("--------------------------------------------");
+                System.out.println("Datum: " + date);
+                System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
+                System.out.println("Omschrijving: " + dag.getOmschrijving());
+                System.out.println("--------------------------------------------");
+
+                totaalGeredenKiloMeters += werkgever.getKiloMeters();
+                totaalGewerkteUren += dag.getGewerkteUren();
+            }
+        }
+        uurLoon(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
+    }
+}
+
+// Concrete classes extending Overzicht
+class MaandOverzicht extends Overzicht {
+    public void printDagenVanDeMaand(int jaar, int maand, Werkgever werkgever, Project project) {
+        super.printOverzicht(jaar, maand, werkgever, project);
+    }
+}
+
+class JaarOverzicht extends Overzicht {
+    public void printDagenVanHetJaar(int jaar, Werkgever werkgever, Project project) {
+        super.printOverzicht(jaar, -1, werkgever, project);
+    }
+}
+
+// Dependency Inversion Principle: High-Level modules shouldn't depend on Low-Level modules. Both should depend on abstractions
+class Start {
+    private final Scanner scanner;
+    DataReader dataReader;
+    DataWriter dataWriter;
+    private final WerkgeverFactory werkgeverFactory;
+    private final ProjectFactory projectFactory;
+
+    public Start(Scanner scanner, DataReader readData, DataWriter writeData, WerkgeverFactory werkgeverFactory, ProjectFactory projectFactory) {
+        this.scanner = scanner;
+        this.dataReader = readData;
+        this.dataWriter = writeData;
+        this.werkgeverFactory = werkgeverFactory;
+        this.projectFactory = projectFactory;
+    }
+
+    public void startProgram(Gebruiker gebruiker) {
         while (true) {
             System.out.println("Select an option:");
             System.out.println("1. Voeg dagen toe");
@@ -303,15 +298,13 @@ class Start{
             System.out.println("3. Voeg project toe");
             System.out.println("4. Genereer een maand overzicht");
             System.out.println("5. Genereer een jaar overzicht");
-
             System.out.println("0. Exit");
-
             System.out.print("Maak een keuze: ");
             String choice = scanner.nextLine();
 
             switch (choice) {
                 case "1":
-                    //Voeg dag toe
+                    // Voeg dag toe
                     Werkgever werkgever = gebruiker.selectWerkgever(scanner);
                     Project project = werkgever.selectProject(scanner);
 
@@ -327,8 +320,7 @@ class Start{
                     LocalDate savedDate = LocalDate.parse(inputDate);
 
                     project.addDag(new Dag(gewerkteUren, omschrijving, savedDate));
-
-                    data.writeData(gebruiker);
+                    dataWriter.writeData(gebruiker);
                     break;
 
                 case "2":
@@ -340,78 +332,62 @@ class Start{
                     System.out.print("Hoe ver weg is het?: ");
                     float kilometers = Float.parseFloat(scanner.nextLine());
 
-                    gebruiker.addWerkgever(new Werkgever(naam, kilometers));
-
-                    data.writeData(gebruiker);
+                    gebruiker.addWerkgever(werkgeverFactory.createWerkgever(naam, kilometers));
+                    dataWriter.writeData(gebruiker);
                     break;
 
                 case "3":
                     // Voeg Project toe
                     Werkgever werkgever1 = gebruiker.selectWerkgever(scanner);
-
                     System.out.println("Voer het project naam in: ");
                     String projectNaam = scanner.nextLine();
 
                     System.out.println("Heb je een uurloon of een vastprijs");
                     System.out.println("1. Uurloon");
                     System.out.println("2. Vastprijs");
-
                     String loonChoice = scanner.nextLine();
-
-                    float uurloon;
-                    float vastprijs;
 
                     switch (loonChoice) {
                         case "1":
                             System.out.print("Voer uurloon in: ");
-                            uurloon = scanner.nextFloat();
-                            werkgever1.addProject( new Project(projectNaam, uurloon));
-                            data.writeData(gebruiker);
+                            float uurloon = scanner.nextFloat();
+                            werkgever1.addProject(projectFactory.createProject(projectNaam, uurloon));
                             break;
                         case "2":
                             System.out.print("Voer vastprijs in: ");
-                            vastprijs = scanner.nextFloat();
-                            werkgever1.addProject(new Project(projectNaam, vastprijs, false));
-                            data.writeData(gebruiker);
+                            float vastprijs = scanner.nextFloat();
+                            werkgever1.addProject(projectFactory.createProject(projectNaam, vastprijs, false));
                             break;
                         default:
                             System.out.println("Error: Voer 1 of 2 in");
                             break;
                     }
+                    dataWriter.writeData(gebruiker);
+                    break;
 
                 case "4":
-                    MaandOverzicht maandOverzicht = new MaandOverzicht(gebruiker.getWerkgevers());
-
+                    MaandOverzicht maandOverzicht = new MaandOverzicht();
                     Werkgever werkgever2 = gebruiker.selectWerkgever(scanner);
                     Project project2 = werkgever2.selectProject(scanner);
-
-
                     System.out.println("Voer een jaar in: ");
                     int jaar = scanner.nextInt();
-
                     System.out.println("Voer een maand in: ");
                     int maand = scanner.nextInt();
-
                     maandOverzicht.printDagenVanDeMaand(jaar, maand, werkgever2, project2);
                     break;
 
-
                 case "5":
-                    JaarOverzicht jaarOverzicht = new JaarOverzicht(gebruiker.getWerkgevers());
-
+                    JaarOverzicht jaarOverzicht = new JaarOverzicht();
                     Werkgever werkgever3 = gebruiker.selectWerkgever(scanner);
                     Project project3 = werkgever3.selectProject(scanner);
-
                     System.out.println("Voer een jaar in: ");
                     int jaar1 = scanner.nextInt();
-
                     jaarOverzicht.printDagenVanHetJaar(jaar1, werkgever3, project3);
                     break;
 
                 case "0":
-                    // Exit
                     System.out.println("Exiting program...");
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid choice. Please select again.");
@@ -420,12 +396,17 @@ class Start{
     }
 }
 
+// Main class demonstrating Dependency Inversion Principle
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        DataWriter dataWriter = new DataWriter();
+        DataReader dataReader = new DataReader();
+        WerkgeverFactory werkgeverFactory = new ConcreteWerkgeverFactory();
+        ProjectFactory projectFactory = new ConcreteProjectFactory();
 
-        Data data = new Data();
-        Start start = new Start();
+        Start start = new Start(scanner, dataReader, dataWriter, werkgeverFactory, projectFactory);
+
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
 
         Gebruiker maarten = new Gebruiker("12345");
@@ -434,11 +415,9 @@ public class Main {
         System.out.println("Voer je inlog naam in: ");
         String inlogNaam = scanner.nextLine();
 
-        // Lees eerst data
-        // Start dan programma
         for (Gebruiker gebruiker : gebruikers) {
             if (gebruiker.isGebruiker(inlogNaam)) {
-                Gebruiker loadedGebruiker = data.getData();
+                Gebruiker loadedGebruiker = dataReader.readData();
                 if (loadedGebruiker != null) {
                     gebruiker = loadedGebruiker;
                 }
@@ -447,5 +426,3 @@ public class Main {
         }
     }
 }
-
-//nooit meer nederlands project
