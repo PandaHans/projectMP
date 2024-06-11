@@ -50,8 +50,8 @@ class Gebruiker implements Serializable {
     }
 }
 
-
-
+/*
+//Composite design pattern
 abstract class ClientComponent {
     // We throw UnsupportedOperationException so that if
     // it doesn't make sense for a song, or song group
@@ -85,52 +85,80 @@ abstract class ClientComponent {
 }
 class Client extends ClientComponent implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String naam;
-    private float kiloMeters;
+
     private ArrayList<ClientComponent> components = new ArrayList<>();
 
-    public Client(String naam, float kiloMeters) {
-        this.naam = naam;
+    private String clientNaam;
+    private float kiloMeters;
+
+    public Client(String clientNaam, float kiloMeters) {
+        this.clientNaam = clientNaam;
         this.kiloMeters = kiloMeters;
     }
-    public float getKiloMeters(){
+
+    public String getClientNaam() {
+        return clientNaam;
+    }
+    public float getKiloMeters() {
         return kiloMeters;
     }
+
     public void add(ClientComponent newComponent) {
         components.add(newComponent);
     }
     public void remove(ClientComponent newComponent) {
         components.remove(newComponent);
     }
+
     public ClientComponent getComponent(int componentIndex) {
         return components.get(componentIndex);
     }
-    public String getName() {
-        return naam;
+
+*/
+/*    public float getKiloMeters(){
+        return kiloMeters;
     }
 
-    public void displayInfo() {
-        System.out.println("Client: " + getName());
-        for (ClientComponent component : components) {
-            component.displayClientInfo();
+    public ClientComponent getComponent(int componentIndex) {
+        return components.get(componentIndex);
+    }
+    public String getClientNaam() {
+        return clientNaam;
+    }*/
+/*
+
+
+    public void displayClientInfo() {
+        System.out.println(getClientNaam() + " " + getKiloMeters() + "\n");
+        for (ClientComponent clientInfo : components) {
+            clientInfo.displayClientInfo();
         }
+        */
+/*        Iterator<ClientComponent> clientIterator = components.iterator();
+        while (clientIterator.hasNext()) {
+            ClientComponent clientInfo = clientIterator.next();
+            clientInfo.displayClientInfo();
+        }*/
+/*
+
     }
 }
 class Project extends ClientComponent implements Serializable {
-    private String naam;
-    private float uurLoon;
+    private String projectNaam;
+    private float projectUurloon;
     private ArrayList<Dag> dagen = new ArrayList<>();
 
-    public Project(String naam, float uurLoon) {
-        this.naam = naam;
-        this.uurLoon = uurLoon;
+    public Project(String projectNaam, float projectUurloon) {
+        this.projectNaam = projectNaam;
+        this.projectUurloon = projectUurloon;
     }
 
-    public String getName() {
-        return naam;
+
+    public String getProjectNaam() {
+        return projectNaam;
     }
-    public float getUurLoon() {
-        return uurLoon;
+    public float getProjectUurloon() {
+        return projectUurloon;
     }
     public ArrayList<Dag> getDagen() {
         return dagen;
@@ -139,15 +167,16 @@ class Project extends ClientComponent implements Serializable {
         dagen.add(dag);
     }
 
-    public void displayInfo() {
-        System.out.println("Project: " + getName() + ", Uurloon: " + getUurLoon());
+    public void displayProjectInfo() {
+        System.out.println(getProjectNaam() + " " + getProjectUurloon() + "\n");
         for (Dag dag : dagen) {
             System.out.println("    Dag: " + dag.getOmschrijving() + ", Uren: " + dag.getGewerkteUren());
         }
     }
 }
+*/
 
-/*class Client implements Serializable {
+class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String naam;
@@ -203,8 +232,8 @@ class Project extends ClientComponent implements Serializable {
     public String getNaam() {
         return naam;
     }
-}*/
-/*class Project implements Serializable {
+}
+class Project implements Serializable {
     private String naam;
     private float uurLoon;
     private ArrayList<Dag> dagen = new ArrayList<>();
@@ -227,7 +256,7 @@ class Project extends ClientComponent implements Serializable {
     public String getNaam() {
         return naam;
     }
-}*/
+}
 /*
 class Dag implements Serializable {
     @Serial
@@ -264,7 +293,8 @@ class Dag implements Serializable {
 }
 */
 
-abstract class Dag {
+//Factory method design pattern
+abstract class Dag implements Serializable {
     private float gewerkteUren;
     private String omschrijving;
     LocalDate savedDate;
@@ -314,6 +344,7 @@ class DagFactory{
     }
 }
 
+//Template design pattern
 abstract class Invoice {
     final void makeInvoice(){
         addHeader();
@@ -340,6 +371,7 @@ abstract class Invoice {
         System.out.println("Description of activities\n");
     }
 /*
+//////////////////////////////////////////////
     final void makeInvoice(int jaar, int maand, Client client, Project project) {
         addAddress(client);
         addProjectDetails(client, project);
@@ -352,7 +384,9 @@ abstract class Invoice {
 */
 }
 class MaandInvoice extends Invoice {
-    void addClient() {    }
+    void addClient() {
+
+    }
     void addDagen() {
 
     }
@@ -576,7 +610,6 @@ class Start {
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        DataWriter dataWriter = new DataWriter();
         DataReader dataReader = new DataReader();
 
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
