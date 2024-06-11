@@ -386,21 +386,9 @@ class DataWriter{
 }
 
 class Start {
-    private final Scanner scanner;
-    DataReader dataReader;
-    DataWriter dataWriter;
-    private final WerkgeverFactory werkgeverFactory;
-    private final ProjectFactory projectFactory;
-
-    public Start(Scanner scanner, DataReader readData, DataWriter writeData, WerkgeverFactory werkgeverFactory, ProjectFactory projectFactory) {
-        this.scanner = scanner;
-        this.dataReader = readData;
-        this.dataWriter = writeData;
-        this.werkgeverFactory = werkgeverFactory;
-        this.projectFactory = projectFactory;
-    }
-
-    public void startProgram(Gebruiker gebruiker) {
+    public static void startProgram(Gebruiker gebruiker) {
+        DataWriter dataWriter = new DataWriter();
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Select an option:");
             System.out.println("1. Voeg dagen toe");
@@ -414,6 +402,8 @@ class Start {
 
             switch (choice) {
                 case "1":
+                    DagFactory dagFactory = new DagFactory();
+
                     // Voeg dag toe
                     Client client = gebruiker.selectWerkgever(scanner);
                     Project project = client.selectProject(scanner);
@@ -429,7 +419,14 @@ class Start {
                     String inputDate = scanner.nextLine();
                     LocalDate savedDate = LocalDate.parse(inputDate);
 
-                    project.addDag(new Dag(gewerkteUren, omschrijving, savedDate));
+                    Dag nieuwedag = dagFactory.maakDag("A");
+
+                    nieuwedag.setOmschrijving(omschrijving);
+                    nieuwedag.setGewerkteUren(gewerkteUren);
+                    nieuwedag.setSavedDate(savedDate);
+
+                    project.addDag(nieuwedag);
+
                     dataWriter.writeData(gebruiker);
                     break;
 
@@ -496,9 +493,6 @@ public class Main {
         DataWriter dataWriter = new DataWriter();
         DataReader dataReader = new DataReader();
 
-
-        Start start = new Start(scanner, dataReader, dataWriter, werkgeverFactory, projectFactory);
-
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
 
         Gebruiker maarten = new Gebruiker("12345");
@@ -513,9 +507,14 @@ public class Main {
                 if (loadedGebruiker != null) {
                     gebruiker = loadedGebruiker;
                 }
-                start.startProgram(gebruiker);
+                Start.startProgram(gebruiker);
             }
         }
     }
 }
 // alles nl veranderen
+// https://www.newthinktank.com/2012/09/factory-design-pattern-tutorial/
+// https://www.newthinktank.com/2012/10/template-method-design-pattern-tutorial/
+// https://www.newthinktank.com/2012/10/composite-design-pattern-tutorial/
+// https://www.youtube.com/watch?v=9XnsOpjclUg&list=PLF206E906175C7E07&index=9
+// https://www.youtube.com/watch?v=vNHpsC5ng_E&list=PLF206E906175C7E07
