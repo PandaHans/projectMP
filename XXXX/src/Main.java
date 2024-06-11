@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
-
+/*
 class Gebruiker implements Serializable {
     private static final long serialVersionUID = 1L;
     private String inlogNaam;
@@ -48,7 +48,7 @@ class Gebruiker implements Serializable {
             return null;
         }
     }
-}
+}*/
 
 /*
 //Composite design pattern
@@ -114,8 +114,7 @@ class Client extends ClientComponent implements Serializable {
         return components.get(componentIndex);
     }
 
-*/
-/*    public float getKiloMeters(){
+    public float getKiloMeters(){
         return kiloMeters;
     }
 
@@ -124,8 +123,7 @@ class Client extends ClientComponent implements Serializable {
     }
     public String getClientNaam() {
         return clientNaam;
-    }*/
-/*
+    }
 
 
     public void displayClientInfo() {
@@ -133,13 +131,11 @@ class Client extends ClientComponent implements Serializable {
         for (ClientComponent clientInfo : components) {
             clientInfo.displayClientInfo();
         }
-        */
-/*        Iterator<ClientComponent> clientIterator = components.iterator();
+        Iterator<ClientComponent> clientIterator = components.iterator();
         while (clientIterator.hasNext()) {
             ClientComponent clientInfo = clientIterator.next();
             clientInfo.displayClientInfo();
-        }*/
-/*
+        }
 
     }
 }
@@ -176,17 +172,97 @@ class Project extends ClientComponent implements Serializable {
 }
 */
 
+class Gebruiker implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private String inlogNaam;
+    private ArrayList<Client> clienten = new ArrayList<>();
+
+    public Gebruiker(String inlogNaam) {
+        this.inlogNaam = inlogNaam;
+    }
+
+    public boolean isGebruiker(String inlogNaam){
+        return this.inlogNaam.equals(inlogNaam);
+    }
+    public String getInlogNaam() {
+        return inlogNaam;
+    }
+    public void setInlogNaam(String inlogNaam) {
+        this.inlogNaam = inlogNaam;
+    }
+    public ArrayList<Client> getClienten() {
+        return clienten;
+    }
+    public void setClienten(ArrayList<Client> clienten) {
+        this.clienten = clienten;
+    }
+
+    public ArrayList<Client> getClient() {
+        return clienten;
+    }
+    public void addClient(Client client){
+        // kijk of client al bestaat
+        boolean exists = false;
+        for (Client bestaandeClient : clienten) {
+            if (bestaandeClient.getClientNaam().equals(client.getClientNaam())) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            clienten.add(client);
+            System.out.println("Client toegevoegd!");
+        } else {
+            System.out.println("Client bestaat al.");
+        }
+    }
+    public String getClientNaam(int i){
+        return clienten.get(i).getClientNaam();
+    }
+
+    public Client selectClient() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Selecteer een Client:");
+        for (int i = 0; i < getClienten().size(); i++) {
+            System.out.println(i + ". " + getClientNaam(i));
+        }
+
+        System.out.print("Maak een keuze: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice >= 0 && choice < getClienten().size()) {
+            return getClienten().get(choice);
+        } else {
+            System.out.println("Ongeldige keuze voor client.");
+            return null;
+        }
+    }
+}
 class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    private String naam;
+    private String clientNaam;
     private float kiloMeters;
     private ArrayList<Project> projecten = new ArrayList<>();
 
-    public Client(String naam, float kiloMeters) {
-        this.naam = naam;
+    public Client(String clientNaam, float kiloMeters) {
+        this.clientNaam = clientNaam;
         this.kiloMeters = kiloMeters;
     }
+
+    public void setClientNaam(String clientNaam) {
+        this.clientNaam = clientNaam;
+    }
+    public void setKiloMeters(float kiloMeters) {
+        this.kiloMeters = kiloMeters;
+    }
+    public void setProjecten(ArrayList<Project> projecten) {
+        this.projecten = projecten;
+    }
+
     public float getKiloMeters(){
         return kiloMeters;
     }
@@ -197,7 +273,7 @@ class Client implements Serializable {
         // kijk of project al bestaat
         boolean exists = false;
         for (Project bestaandProject : projecten) {
-            if (bestaandProject.getNaam().equals(project.getNaam())) {
+            if (bestaandProject.getProjectNaam().equals(project.getProjectNaam())) {
                 exists = true;
                 break;
             }
@@ -210,9 +286,10 @@ class Client implements Serializable {
         }
     }
     public String getProjectNaam(int i) {
-        return projecten.get(i).getNaam();
+        return projecten.get(i).getProjectNaam();
     }
-    public Project selectProject(Scanner scanner) {
+    public Project selectProject() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Selecteer een project:");
         for (int i = 0; i < getProjecten().size(); i++) {
             System.out.println(i + ". " + getProjectNaam(i));
@@ -229,69 +306,41 @@ class Client implements Serializable {
             return null;
         }
     }
-    public String getNaam() {
-        return naam;
+    public String getClientNaam() {
+        return clientNaam;
     }
 }
 class Project implements Serializable {
-    private String naam;
+    private String projectNaam;
     private float uurLoon;
     private ArrayList<Dag> dagen = new ArrayList<>();
 
-    public Project(String naam, float uurLoon) {
-        this.naam = naam;
+    public Project(String projectNaam, float uurLoon) {
+        this.projectNaam = projectNaam;
         this.uurLoon = uurLoon;
     }
-
+    public void setDagen(ArrayList<Dag> dagen) {
+        this.dagen = dagen;
+    }
+    public void setProjectNaam(String projectNaam) {
+        this.projectNaam = projectNaam;
+    }
+    public void setUurLoon(float uurLoon) {
+        this.uurLoon = uurLoon;
+    }
     public ArrayList<Dag> getDagen() {
         return dagen;
     }
     public void addDag(Dag dag){
         dagen.add(dag);
     }
-
     public float getUurLoon() {
         return uurLoon;
     }
-    public String getNaam() {
-        return naam;
+    public String getProjectNaam() {
+        return projectNaam;
     }
 }
-/*
-class Dag implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private float gewerkteUren;
-    private String omschrijving;
-    LocalDate savedDate;
-
-    public Dag(float gewerkteUren, String omschrijving, LocalDate savedDate) {
-        this.gewerkteUren = gewerkteUren;
-        this.omschrijving = omschrijving;
-        this.savedDate = savedDate;
-    }
-
-    public LocalDate getSavedDate() {
-        return savedDate;
-    }
-    public float getGewerkteUren() {
-        return gewerkteUren;
-    }
-    public String getOmschrijving() {
-        return omschrijving;
-    }
-
-    public void setGewerkteUren(float gewerkteUren) {
-        this.gewerkteUren = gewerkteUren;
-    }
-    public void setOmschrijving(String omschrijving) {
-        this.omschrijving = omschrijving;
-    }
-    public void setSavedDate(LocalDate savedDate) {
-        this.savedDate = savedDate;
-    }
-}
-*/
 
 //Factory method design pattern
 abstract class Dag implements Serializable {
@@ -346,22 +395,24 @@ class DagFactory{
 
 //Template design pattern
 abstract class Invoice {
-    final void makeInvoice(){
+    final void makeInvoice(Client client, Project project){
+        int maand = getMaand();
+        int jaar = getJaar();
         addHeader();
         if (wantsDagen()){
-            addDagen();
+            addDagen(client, project, maand, jaar);
         }
         if (wantsClient()){
-            addClient();
+            addClient(client);
         }
         if (wantsProject()){
-            addProject();
+            addProject(project);
         }
     }
 
-    abstract void addClient();
-    abstract void addDagen();
-    abstract void addProject();
+    abstract void addDagen(Client client, Project project, int maand, int jaar);
+    abstract void addClient(Client client);
+    abstract void addProject(Project project);
 
     boolean wantsDagen() {return true;}
     boolean wantsClient() {return true;}
@@ -369,6 +420,27 @@ abstract class Invoice {
 
     public void addHeader(){
         System.out.println("Description of activities\n");
+    }
+
+    public int getJaar(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Voer het jaar in: ");
+        return scanner.nextInt();
+    }
+    public int getMaand(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Voer de maand in: ");
+        return scanner.nextInt();
+    }
+
+    public void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
+        float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().getFirst().getUurLoon(); // assuming getProjecten() and getUurLoon() exist in Client and Project classes
+        float totaalVerdiend = totaalGewerkteUren * uurLoon;
+
+        System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
+        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
+        System.out.println("Totaal verdiend: " + totaalVerdiend + "\n");
+        System.out.println();
     }
 /*
 //////////////////////////////////////////////
@@ -384,98 +456,58 @@ abstract class Invoice {
 */
 }
 class MaandInvoice extends Invoice {
-    void addClient() {
-
-    }
-    void addDagen() {
-
-    }
-    void addProject() {
-
-    }
-/*
-    void addAddress(Client client) {
-        System.out.println("Werkgever: " + client.getNaam());
-    }
-    void addProjectDetails(Client client, Project project) {
-        System.out.println("Project: " + project.getNaam());
-    }
-    void addDays(int jaar, int maand, Project project) {
+    public void addDagen(Client client, Project project, int maand, int jaar){
         float totaalGewerkteUren = 0;
         float totaalGeredenKiloMeters = 0;
 
-        System.out.println("Dagen in maand " + maand + " van " + jaar + ":");
         for (Dag dag : project.getDagen()) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar && date.getMonthValue() == maand) {
                 System.out.println("Datum: " + date);
                 System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
-                System.out.println("Omschrijving: " + dag.getOmschrijving());
+                System.out.println("Omschrijving: " + dag.getOmschrijving() + "\n");
 
-                totaalGeredenKiloMeters += werkgever.getKiloMeters();
+                totaalGeredenKiloMeters += client.getKiloMeters();
                 totaalGewerkteUren += dag.getGewerkteUren();
             }
         }
-        printTotals(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
+            printTotals(client, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
 
-    private void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().get(0).getUurLoon();
-        float totaalVerdiend = totaalGewerkteUren * uurLoon;
 
-        System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
-        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
-        System.out.println("Totaal verdiend: " + totaalVerdiend);
-        System.out.println();
+    public void addClient(Client client) {
+        System.out.println(client.getClientNaam());
     }
-*/
+    public void addProject(Project project) {
+        System.out.println(project.getProjectNaam());
+    }
 }
 class JaarInvoice extends Invoice  {
-    void addClient() {
+    public void addDagen(Client client, Project project, int maand, int jaar){
+    float totaalGewerkteUren = 0;
+    float totaalGeredenKiloMeters = 0;
 
-    }
-    void addDagen() {
+    for (Dag dag : project.getDagen()) {
+        LocalDate date = dag.getSavedDate();
+        if (date.getYear() == jaar) {
+            System.out.println("Datum: " + date);
+            System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
+            System.out.println("Omschrijving: " + dag.getOmschrijving());
 
-    }
-    void addProject() {
-
-    }
-/*
-    void addAddress(Client client) {
-        System.out.println("Werkgever: " + client.getNaam());
-    }
-    void addProjectDetails(Client client, Project project) {
-        System.out.println("Project: " + project.getNaam());
-    }
-    void addDays(int jaar, int maand, Project project) {
-        float totaalGewerkteUren = 0;
-        float totaalGeredenKiloMeters = 0;
-
-        System.out.println("Dagen in jaar " + jaar + ":");
-        for (Dag dag : project.getDagen()) {
-            LocalDate date = dag.getSavedDate();
-            if (date.getYear() == jaar) {
-                System.out.println("Datum: " + date);
-                System.out.println("Gewerkte uren: " + dag.getGewerkteUren());
-                System.out.println("Omschrijving: " + dag.getOmschrijving());
-
-                totaalGeredenKiloMeters += werkgever.getKiloMeters();
-                totaalGewerkteUren += dag.getGewerkteUren();
-            }
+            totaalGeredenKiloMeters += client.getKiloMeters();
+            totaalGewerkteUren += dag.getGewerkteUren();
         }
-        printTotals(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
+    printTotals(client, totaalGewerkteUren, totaalGeredenKiloMeters);
+}
 
-    private void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().get(0).getUurLoon();
-        float totaalVerdiend = totaalGewerkteUren * uurLoon;
 
-        System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
-        System.out.println("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
-        System.out.println("Totaal verdiend: " + totaalVerdiend);
-        System.out.println();
+    public void addClient(Client client) {
+        System.out.println(client.getClientNaam());
     }
-*/
+    public void addProject(Project project) {
+        System.out.println(project.getProjectNaam());
+    }
 }
 
 class DataReader {
@@ -512,7 +544,7 @@ class Start {
         while (true) {
             System.out.println("Select an option:");
             System.out.println("1. Voeg dagen toe");
-            System.out.println("2. Voeg werkgever toe");
+            System.out.println("2. Voeg client toe");
             System.out.println("3. Voeg project toe");
             System.out.println("4. Genereer een maand overzicht");
             System.out.println("5. Genereer een jaar overzicht");
@@ -525,8 +557,8 @@ class Start {
                     DagFactory dagFactory = new DagFactory();
 
                     // Voeg dag toe
-                    Client client = gebruiker.selectWerkgever(scanner);
-                    Project project = client.selectProject(scanner);
+                    Client client = gebruiker.selectClient();
+                    Project project = client.selectProject();
 
                     System.out.println("Hoeveel uren heb je gewerkt: ");
                     float gewerkteUren = scanner.nextFloat();
@@ -551,49 +583,45 @@ class Start {
                     break;
 
                 case "2":
-                    // Voeg Werkgever toe
-                    System.out.println("Enter werkgever details:");
+                    // Voeg Client toe
+                    System.out.println("Enter client details:");
                     System.out.print("Naam: ");
                     String naam = scanner.nextLine();
 
                     System.out.print("Hoe ver weg is het?: ");
                     float kilometers = Float.parseFloat(scanner.nextLine());
 
-                    gebruiker.addWerkgever(werkgeverFactory.createWerkgever(naam, kilometers));
+                    gebruiker.addClient(new Client(naam, kilometers));
                     dataWriter.writeData(gebruiker);
                     break;
 
                 case "3":
                     // Voeg Project toe
-                    Client client1 = gebruiker.selectWerkgever(scanner);
+                    Client client1 = gebruiker.selectClient();
+
                     System.out.println("Voer het project naam in: ");
                     String projectNaam = scanner.nextLine();
 
                     System.out.print("Voer uurloon in: ");
                     float uurloon = scanner.nextFloat();
-                    client1.addProject(projectFactory.createProject(projectNaam, uurloon));
+
+                    client1.addProject(new Project(projectNaam, uurloon));
 
                     dataWriter.writeData(gebruiker);
                     break;
 
                 case "4":
-                    MaandInvoice maandInvoice = new MaandInvoice();
-                    Client client2 = gebruiker.selectWerkgever(scanner);
-                    Project project2 = client2.selectProject(scanner);
-                    System.out.println("Voer een jaar in: ");
-                    int jaar = scanner.nextInt();
-                    System.out.println("Voer een maand in: ");
-                    int maand = scanner.nextInt();
-                    maandInvoice.makeInvoice(jaar, maand, client2, project2);
+                    Invoice maandInvoice = new MaandInvoice();
+                    Client client2 = gebruiker.selectClient();
+                    Project project2 = client2.selectProject();
+                    maandInvoice.makeInvoice(client2, project2);
                     break;
 
                 case "5":
-                    JaarInvoice jaarInvoice = new JaarInvoice();
-                    Client client3 = gebruiker.selectWerkgever(scanner);
-                    Project project3 = client3.selectProject(scanner);
-                    System.out.println("Voer een jaar in: ");
-                    int jaar1 = scanner.nextInt();
-                    jaarInvoice.makeInvoice(jaar1, -1, client3, project3);
+                    Invoice jaarInvoice = new JaarInvoice();
+                    Client client3 = gebruiker.selectClient();
+                    Project project3 = client3.selectProject();
+                    jaarInvoice.makeInvoice(client3, project3);
                     break;
 
                 case "0":
