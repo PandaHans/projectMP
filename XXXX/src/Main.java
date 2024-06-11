@@ -6,11 +6,9 @@ import java.util.Scanner;
 import java.time.LocalDate;
 
 class Gebruiker implements Serializable {
-
-    @Serial
     private static final long serialVersionUID = 1L;
     private String inlogNaam;
-    private ArrayList<Client> clients = new ArrayList<>();
+    private ArrayList<ClientComponent> clients = new ArrayList<>();
 
     public Gebruiker(String inlogNaam) {
         this.inlogNaam = inlogNaam;
@@ -20,30 +18,20 @@ class Gebruiker implements Serializable {
         return this.inlogNaam.equals(inlogNaam);
     }
 
-    public ArrayList<Client> getWerkgevers() {
+    public ArrayList<ClientComponent> getWerkgevers() {
         return clients;
     }
-    public void addWerkgever(Client client){
-        // kijk of werkgever al bestaat
-        boolean exists = false;
-        for (Client bestaandeClient : clients) {
-            if (bestaandeClient.getNaam().equals(client.getNaam())) {
-                exists = true;
-                break;
-            }
-        }
-        if (!exists) {
-            clients.add(client);
-            System.out.println("Werkgever toegevoegd!");
-        } else {
-            System.out.println("Werkgever bestaat al.");
-        }
-    }
-    public String getWerkgeverNaam(int i){
-        return clients.get(i).getNaam();
+
+    public void addWerkgever(ClientComponent client){
+        clients.add(client);
+        System.out.println("Werkgever toegevoegd!");
     }
 
-    public Client selectWerkgever(Scanner scanner) {
+    public String getWerkgeverNaam(int i){
+        return clients.get(i).getName();
+    }
+
+    public ClientComponent selectWerkgever(Scanner scanner) {
         System.out.println("Selecteer een werkgever:");
         for (int i = 0; i < getWerkgevers().size(); i++) {
             System.out.println(i + ". " + getWerkgeverNaam(i));
@@ -61,7 +49,103 @@ class Gebruiker implements Serializable {
         }
     }
 }
-class Client implements Serializable {
+
+abstract class ClientComponent {
+    // We throw UnsupportedOperationException so that if
+    // it doesn't make sense for a song, or song group
+    // to inherit a method they can just inherit the
+    // default implementation
+    public void add(ClientComponent newClientComponent) {
+
+        throw new UnsupportedOperationException();
+
+    }
+    public void remove(ClientComponent newClientComponent) {
+
+        throw new UnsupportedOperationException();
+
+    }
+    public ClientComponent getComponent(int componentIndex) {
+
+        throw new UnsupportedOperationException();
+
+    }
+    public String getName() {
+
+        throw new UnsupportedOperationException();
+
+    }
+    public void displayClientInfo() {
+
+        throw new UnsupportedOperationException();
+
+    }
+}
+class Client extends ClientComponent implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String naam;
+    private float kiloMeters;
+    private ArrayList<ClientComponent> components = new ArrayList<>();
+
+    public Client(String naam, float kiloMeters) {
+        this.naam = naam;
+        this.kiloMeters = kiloMeters;
+    }
+    public float getKiloMeters(){
+        return kiloMeters;
+    }
+    public void add(ClientComponent newComponent) {
+        components.add(newComponent);
+    }
+    public void remove(ClientComponent newComponent) {
+        components.remove(newComponent);
+    }
+    public ClientComponent getComponent(int componentIndex) {
+        return components.get(componentIndex);
+    }
+    public String getName() {
+        return naam;
+    }
+
+    public void displayInfo() {
+        System.out.println("Client: " + getName());
+        for (ClientComponent component : components) {
+            component.displayClientInfo();
+        }
+    }
+}
+class Project extends ClientComponent implements Serializable {
+    private String naam;
+    private float uurLoon;
+    private ArrayList<Dag> dagen = new ArrayList<>();
+
+    public Project(String naam, float uurLoon) {
+        this.naam = naam;
+        this.uurLoon = uurLoon;
+    }
+
+    public String getName() {
+        return naam;
+    }
+    public float getUurLoon() {
+        return uurLoon;
+    }
+    public ArrayList<Dag> getDagen() {
+        return dagen;
+    }
+    public void addDag(Dag dag){
+        dagen.add(dag);
+    }
+
+    public void displayInfo() {
+        System.out.println("Project: " + getName() + ", Uurloon: " + getUurLoon());
+        for (Dag dag : dagen) {
+            System.out.println("    Dag: " + dag.getOmschrijving() + ", Uren: " + dag.getGewerkteUren());
+        }
+    }
+}
+
+/*class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String naam;
@@ -117,8 +201,8 @@ class Client implements Serializable {
     public String getNaam() {
         return naam;
     }
-}
-class Project implements Serializable {
+}*/
+/*class Project implements Serializable {
     private String naam;
     private float uurLoon;
     private ArrayList<Dag> dagen = new ArrayList<>();
@@ -141,7 +225,7 @@ class Project implements Serializable {
     public String getNaam() {
         return naam;
     }
-}
+}*/
 /*
 class Dag implements Serializable {
     @Serial
@@ -513,6 +597,7 @@ public class Main {
     }
 }
 // alles nl veranderen
+// alle classes public maken
 // https://www.newthinktank.com/2012/09/factory-design-pattern-tutorial/
 // https://www.newthinktank.com/2012/10/template-method-design-pattern-tutorial/
 // https://www.newthinktank.com/2012/10/composite-design-pattern-tutorial/
