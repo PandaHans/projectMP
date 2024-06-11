@@ -50,6 +50,8 @@ class Gebruiker implements Serializable {
     }
 }
 
+
+
 abstract class ClientComponent {
     // We throw UnsupportedOperationException so that if
     // it doesn't make sense for a song, or song group
@@ -596,12 +598,17 @@ public class Main {
         }
     }
 }
+
 // Start class veranderen
 // invoice class invullen
-// alles nl veranderen
 // alle classes public maken
 // javafx toevoegen
 // Kijken naar userclass?
+// comments toevoegen bij design patterns
+// kijken naar sigrid
+// kijken naar solid principles
+// kijken naar data save method
+// alles nl veranderen
 
 /*class UserInput {
     private Scanner scanner;
