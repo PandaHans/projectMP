@@ -10,7 +10,7 @@ class Gebruiker implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String inlogNaam;
-    private ArrayList<Werkgever> werkgevers = new ArrayList<>();
+    private ArrayList<Client> clients = new ArrayList<>();
 
     public Gebruiker(String inlogNaam) {
         this.inlogNaam = inlogNaam;
@@ -20,30 +20,30 @@ class Gebruiker implements Serializable {
         return this.inlogNaam.equals(inlogNaam);
     }
 
-    public ArrayList<Werkgever> getWerkgevers() {
-        return werkgevers;
+    public ArrayList<Client> getWerkgevers() {
+        return clients;
     }
-    public void addWerkgever(Werkgever werkgever){
+    public void addWerkgever(Client client){
         // kijk of werkgever al bestaat
         boolean exists = false;
-        for (Werkgever bestaandeWerkgever : werkgevers) {
-            if (bestaandeWerkgever.getNaam().equals(werkgever.getNaam())) {
+        for (Client bestaandeClient : clients) {
+            if (bestaandeClient.getNaam().equals(client.getNaam())) {
                 exists = true;
                 break;
             }
         }
         if (!exists) {
-            werkgevers.add(werkgever);
+            clients.add(client);
             System.out.println("Werkgever toegevoegd!");
         } else {
             System.out.println("Werkgever bestaat al.");
         }
     }
     public String getWerkgeverNaam(int i){
-        return werkgevers.get(i).getNaam();
+        return clients.get(i).getNaam();
     }
 
-    public Werkgever selectWerkgever(Scanner scanner) {
+    public Client selectWerkgever(Scanner scanner) {
         System.out.println("Selecteer een werkgever:");
         for (int i = 0; i < getWerkgevers().size(); i++) {
             System.out.println(i + ". " + getWerkgeverNaam(i));
@@ -61,14 +61,14 @@ class Gebruiker implements Serializable {
         }
     }
 }
-class Werkgever implements Serializable {
+class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String naam;
     private float kiloMeters;
     private ArrayList<Project> projecten = new ArrayList<>();
 
-    public Werkgever(String naam, float kiloMeters) {
+    public Client(String naam, float kiloMeters) {
         this.naam = naam;
         this.kiloMeters = kiloMeters;
     }
@@ -142,7 +142,6 @@ class Project implements Serializable {
         return naam;
     }
 }
-
 /*
 class Dag implements Serializable {
     @Serial
@@ -229,16 +228,14 @@ class DagFactory{
     }
 }
 
-// Single Responsibility Principle: Separate class for handling data persistence
 abstract class Invoice {
-
     final void makeInvoice(){
-        invoiceInformation();
-        if (wantsClient()){
-            addClient();
-        }
+        addHeader();
         if (wantsDagen()){
             addDagen();
+        }
+        if (wantsClient()){
+            addClient();
         }
         if (wantsProject()){
             addProject();
@@ -249,27 +246,24 @@ abstract class Invoice {
     abstract void addDagen();
     abstract void addProject();
 
-    boolean wantsClient() {return true;}
     boolean wantsDagen() {return true;}
+    boolean wantsClient() {return true;}
     boolean wantsProject() {return true;}
 
-    public void invoiceInformation(){
-        System.out.println("\nInvoice");
+    public void addHeader(){
+        System.out.println("Description of activities\n");
     }
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
 /*
-    final void makeInvoice(int jaar, int maand, Werkgever werkgever, Project project) {
-        addAddress(werkgever);
-        addProjectDetails(werkgever, project);
+    final void makeInvoice(int jaar, int maand, Client client, Project project) {
+        addAddress(client);
+        addProjectDetails(client, project);
 
     }
 
-    abstract void addAddress(Werkgever werkgever);
-    abstract void addProjectDetails(Werkgever werkgever, Project project);
+    abstract void addAddress(Client client);
+    abstract void addProjectDetails(Client client, Project project);
     abstract void addDays(int jaar, int maand, Project project);
 */
-
 }
 class MaandInvoice extends Invoice {
     void addClient() {    }
@@ -279,12 +273,11 @@ class MaandInvoice extends Invoice {
     void addProject() {
 
     }
-
 /*
-    void addAddress(Werkgever werkgever) {
-        System.out.println("Werkgever: " + werkgever.getNaam());
+    void addAddress(Client client) {
+        System.out.println("Werkgever: " + client.getNaam());
     }
-    void addProjectDetails(Werkgever werkgever, Project project) {
+    void addProjectDetails(Client client, Project project) {
         System.out.println("Project: " + project.getNaam());
     }
     void addDays(int jaar, int maand, Project project) {
@@ -306,8 +299,8 @@ class MaandInvoice extends Invoice {
         printTotals(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
 
-    private void printTotals(Werkgever werkgever, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = werkgever.getProjecten().isEmpty() ? 0 : werkgever.getProjecten().get(0).getUurLoon();
+    private void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
+        float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().get(0).getUurLoon();
         float totaalVerdiend = totaalGewerkteUren * uurLoon;
 
         System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
@@ -318,7 +311,6 @@ class MaandInvoice extends Invoice {
 */
 }
 class JaarInvoice extends Invoice  {
-
     void addClient() {
 
     }
@@ -328,12 +320,11 @@ class JaarInvoice extends Invoice  {
     void addProject() {
 
     }
-
 /*
-    void addAddress(Werkgever werkgever) {
-        System.out.println("Werkgever: " + werkgever.getNaam());
+    void addAddress(Client client) {
+        System.out.println("Werkgever: " + client.getNaam());
     }
-    void addProjectDetails(Werkgever werkgever, Project project) {
+    void addProjectDetails(Client client, Project project) {
         System.out.println("Project: " + project.getNaam());
     }
     void addDays(int jaar, int maand, Project project) {
@@ -355,8 +346,8 @@ class JaarInvoice extends Invoice  {
         printTotals(werkgever, totaalGewerkteUren, totaalGeredenKiloMeters);
     }
 
-    private void printTotals(Werkgever werkgever, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
-        float uurLoon = werkgever.getProjecten().isEmpty() ? 0 : werkgever.getProjecten().get(0).getUurLoon();
+    private void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
+        float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().get(0).getUurLoon();
         float totaalVerdiend = totaalGewerkteUren * uurLoon;
 
         System.out.println("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
@@ -394,8 +385,6 @@ class DataWriter{
     }
 }
 
-
-// Dependency Inversion Principle: High-Level modules shouldn't depend on Low-Level modules. Both should depend on abstractions
 class Start {
     private final Scanner scanner;
     DataReader dataReader;
@@ -426,8 +415,8 @@ class Start {
             switch (choice) {
                 case "1":
                     // Voeg dag toe
-                    Werkgever werkgever = gebruiker.selectWerkgever(scanner);
-                    Project project = werkgever.selectProject(scanner);
+                    Client client = gebruiker.selectWerkgever(scanner);
+                    Project project = client.selectProject(scanner);
 
                     System.out.println("Hoeveel uren heb je gewerkt: ");
                     float gewerkteUren = scanner.nextFloat();
@@ -459,35 +448,35 @@ class Start {
 
                 case "3":
                     // Voeg Project toe
-                    Werkgever werkgever1 = gebruiker.selectWerkgever(scanner);
+                    Client client1 = gebruiker.selectWerkgever(scanner);
                     System.out.println("Voer het project naam in: ");
                     String projectNaam = scanner.nextLine();
 
                     System.out.print("Voer uurloon in: ");
                     float uurloon = scanner.nextFloat();
-                    werkgever1.addProject(projectFactory.createProject(projectNaam, uurloon));
+                    client1.addProject(projectFactory.createProject(projectNaam, uurloon));
 
                     dataWriter.writeData(gebruiker);
                     break;
 
                 case "4":
                     MaandInvoice maandInvoice = new MaandInvoice();
-                    Werkgever werkgever2 = gebruiker.selectWerkgever(scanner);
-                    Project project2 = werkgever2.selectProject(scanner);
+                    Client client2 = gebruiker.selectWerkgever(scanner);
+                    Project project2 = client2.selectProject(scanner);
                     System.out.println("Voer een jaar in: ");
                     int jaar = scanner.nextInt();
                     System.out.println("Voer een maand in: ");
                     int maand = scanner.nextInt();
-                    maandInvoice.makeInvoice(jaar, maand, werkgever2, project2);
+                    maandInvoice.makeInvoice(jaar, maand, client2, project2);
                     break;
 
                 case "5":
                     JaarInvoice jaarInvoice = new JaarInvoice();
-                    Werkgever werkgever3 = gebruiker.selectWerkgever(scanner);
-                    Project project3 = werkgever3.selectProject(scanner);
+                    Client client3 = gebruiker.selectWerkgever(scanner);
+                    Project project3 = client3.selectProject(scanner);
                     System.out.println("Voer een jaar in: ");
                     int jaar1 = scanner.nextInt();
-                    jaarInvoice.makeInvoice(jaar1, -1, werkgever3, project3);
+                    jaarInvoice.makeInvoice(jaar1, -1, client3, project3);
                     break;
 
                 case "0":
@@ -501,14 +490,12 @@ class Start {
     }
 }
 
-// Main class demonstrating Dependency Inversion Principle
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DataWriter dataWriter = new DataWriter();
         DataReader dataReader = new DataReader();
-        WerkgeverFactory werkgeverFactory = new ConcreteWerkgeverFactory();
-        ProjectFactory projectFactory = new ConcreteProjectFactory();
+
 
         Start start = new Start(scanner, dataReader, dataWriter, werkgeverFactory, projectFactory);
 
@@ -531,5 +518,4 @@ public class Main {
         }
     }
 }
-
 // alles nl veranderen
