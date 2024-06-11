@@ -1,4 +1,6 @@
-package src;
+package src.base;
+
+import src.dag.Dag;
 
 import java.io.Serializable;
 import java.util.ArrayList;

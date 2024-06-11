@@ -1,12 +1,18 @@
-package src;
+package src.invoice;
+
+import src.base.Client;
+import src.base.Project;
+import src.helper.UserInput;
 
 import java.util.Scanner;
 
 //Template design pattern
 public abstract class Invoice {
-    final void makeInvoice(Client client, Project project){
-        int maand = getMaand();
-        int jaar = getJaar();
+    UserInput userInput = new UserInput();
+
+    final public void makeInvoice(Client client, Project project){
+        int maand = userInput.getMaand();
+        int jaar = userInput.getJaar();
         addHeader();
         if (wantsDagen()){
             addDagen(client, project, maand, jaar);
@@ -31,17 +37,6 @@ public abstract class Invoice {
         System.out.println("Description of activities\n");
     }
 
-    public int getJaar(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer het jaar in: ");
-        return scanner.nextInt();
-    }
-    public int getMaand(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer de maand in: ");
-        return scanner.nextInt();
-    }
-
     public void printTotals(Client client, float totaalGewerkteUren, float totaalGeredenKiloMeters) {
         float uurLoon = client.getProjecten().isEmpty() ? 0 : client.getProjecten().getFirst().getUurLoon(); // assuming getProjecten() and getUurLoon() exist in Client and Project classes
         float totaalVerdiend = totaalGewerkteUren * uurLoon;
@@ -51,16 +46,4 @@ public abstract class Invoice {
         System.out.println("Totaal verdiend: " + totaalVerdiend + "\n");
         System.out.println();
     }
-/*
-//////////////////////////////////////////////
-    final void makeInvoice(int jaar, int maand, Client client, Project project) {
-        addAddress(client);
-        addProjectDetails(client, project);
-
-    }
-
-    abstract void addAddress(Client client);
-    abstract void addProjectDetails(Client client, Project project);
-    abstract void addDays(int jaar, int maand, Project project);
-*/
 }

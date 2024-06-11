@@ -1,4 +1,8 @@
-package src;
+package src.invoice;
+
+import src.base.Client;
+import src.base.Project;
+import src.dag.Dag;
 
 import java.time.LocalDate;
 

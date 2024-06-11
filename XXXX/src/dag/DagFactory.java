@@ -1,4 +1,4 @@
-package src;
+package src.dag;
 
 public class DagFactory{
     public Dag maakDag(String nieuweDagType){

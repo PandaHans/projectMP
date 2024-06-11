@@ -1,4 +1,6 @@
-package src;
+package src.data;
+
+import src.base.Gebruiker;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

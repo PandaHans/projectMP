@@ -1,11 +1,23 @@
 package src;
 
+import src.base.Client;
+import src.base.Gebruiker;
+import src.base.Project;
+import src.dag.Dag;
+import src.dag.DagFactory;
+import src.data.DataWriter;
+import src.helper.UserInput;
+import src.invoice.Invoice;
+import src.invoice.JaarInvoice;
+import src.invoice.MaandInvoice;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Start {
     public static void startProgram(Gebruiker gebruiker) {
         DataWriter dataWriter = new DataWriter();
+        UserInput userInput = new UserInput();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Select an option:");
@@ -26,16 +38,9 @@ public class Start {
                     Client client = gebruiker.selectClient();
                     Project project = client.selectProject();
 
-                    System.out.println("Hoeveel uren heb je gewerkt: ");
-                    float gewerkteUren = scanner.nextFloat();
-                    scanner.nextLine();
-
-                    System.out.println("Geef een kleine omschrijving van je dag: ");
-                    String omschrijving = scanner.nextLine();
-
-                    System.out.println("Voer de datum in (YYYY-MM-DD): ");
-                    String inputDate = scanner.nextLine();
-                    LocalDate savedDate = LocalDate.parse(inputDate);
+                    float gewerkteUren = userInput.getFloatInput("Hoeveel uren heb je gewerkt: ");
+                    String omschrijving = userInput.getStringInput("Geef een kleine omschrijving van je dag: ");
+                    LocalDate savedDate = userInput.getDate();
 
                     Dag nieuwedag = dagFactory.maakDag("A");
 
@@ -50,12 +55,10 @@ public class Start {
 
                 case "2":
                     // Voeg Client toe
-                    System.out.println("Enter client details:");
-                    System.out.print("Naam: ");
-                    String naam = scanner.nextLine();
 
-                    System.out.print("Hoe ver weg is het?: ");
-                    float kilometers = Float.parseFloat(scanner.nextLine());
+                    System.out.println("Voer client informatie in:");
+                    String naam = userInput.getStringInput("Naam: ");
+                    float kilometers = userInput.getFloatInput("Hoe ver weg is het?: ");
 
                     gebruiker.addClient(new Client(naam, kilometers));
                     dataWriter.writeData(gebruiker);
@@ -65,14 +68,10 @@ public class Start {
                     // Voeg Project toe
                     Client client1 = gebruiker.selectClient();
 
-                    System.out.println("Voer het project naam in: ");
-                    String projectNaam = scanner.nextLine();
-
-                    System.out.print("Voer uurloon in: ");
-                    float uurloon = scanner.nextFloat();
+                    String projectNaam = userInput.getStringInput("Voer het project naam in: ");
+                    float uurloon = userInput.getFloatInput("Voer uurloon in: ");
 
                     client1.addProject(new Project(projectNaam, uurloon));
-
                     dataWriter.writeData(gebruiker);
                     break;
 

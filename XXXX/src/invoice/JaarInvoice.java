@@ -1,4 +1,8 @@
-package src;
+package src.invoice;
+
+import src.base.Client;
+import src.base.Project;
+import src.dag.Dag;
 
 import java.time.LocalDate;
 
@@ -20,7 +24,6 @@ public class JaarInvoice extends Invoice  {
     }
     printTotals(client, totaalGewerkteUren, totaalGeredenKiloMeters);
 }
-
 
     public void addClient(Client client) {
         System.out.println(client.getClientNaam());

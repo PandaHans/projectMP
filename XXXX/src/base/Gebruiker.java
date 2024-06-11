@@ -1,4 +1,4 @@
-package src;
+package src.base;
 
 import java.io.Serial;
 import java.io.Serializable;
