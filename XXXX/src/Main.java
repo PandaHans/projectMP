@@ -599,6 +599,7 @@ public class Main {
     }
 }
 
+// connent Dag aan project terwijl kijken naar umls van video
 // Start class veranderen
 // invoice class invullen
 // alle classes public maken
