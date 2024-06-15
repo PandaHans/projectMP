@@ -31,7 +31,6 @@ public class Gebruiker implements Serializable {
     public ArrayList<Client> getClient() {
         return clienten;
     }
-
     public void addClient(Client client) {
         // Validate client
         if (client == null || client.getClientNaam().isEmpty() || client.getKiloMeters() <= 0) {
@@ -52,7 +51,6 @@ public class Gebruiker implements Serializable {
         clienten.add(client);
         System.out.println("Client toegevoegd!");
     }
-
     public String getClientNaam(int i) {
         return clienten.get(i).getClientNaam();
     }

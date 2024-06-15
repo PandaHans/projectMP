@@ -1,5 +1,6 @@
 package com.mp.projectmp.dag;
 
+//Factory method design pattern
 public class DagFactory {
     public Dag maakDag(String nieuweDagType) {
         Dag nieuweDag = null;

@@ -57,7 +57,6 @@ public class Client implements Serializable {
     public String getProjectNaam(int i) {
         return projecten.get(i).getProjectNaam();
     }
-
     public String getClientNaam() {
         return clientNaam;
     }

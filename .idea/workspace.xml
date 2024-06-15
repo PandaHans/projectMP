@@ -5,64 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AddDagTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AddProjectTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/GebruikerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/libraries/junit.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/Tests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/XXXX.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/data.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/libraries/junit.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/XXXX.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/data.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/Start.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/base/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/base/Gebruiker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/base/Project.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/dag/AparteDag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/dag/Dag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/dag/DagFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/dag/NormaleDag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/data/DataReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/data/DataWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/helper/UserInput.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/invoice/Invoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/invoice/JaarInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/out/production/XXXX/src/invoice/MaandInvoice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/base/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/base/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/dag/AparteDag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/NormaleDag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/dag/Dag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/Dag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/dag/DagFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/DagFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/dag/NormaleDag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/SnelleDag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/data/DataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/data/DataWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/helper/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/invoice/JaarInvoice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XXXX/src/invoice/MaandInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/DagFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/DagFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/NormaleDag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/NormaleDag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/SnelleDag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/dag/SnelleDag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,12 +53,16 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2hsVdZNxgSoi1NQnF31GsLaljzw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "true",
     "JUnit.AddDagTest.executor": "Run",
@@ -220,10 +177,14 @@
       <updated>1718382861651</updated>
       <workItem from="1718382862794" duration="10829000" />
       <workItem from="1718397871619" duration="15426000" />
+      <workItem from="1718454765739" duration="1219000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -9,9 +9,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//Template Method Pattern
-public class MaandInvoice extends Invoice {
-    @Override
+public class DagList extends Invoice {
+
     public void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException {
         ArrayList<Dag> dagen = project.getDagen();
 
@@ -20,12 +19,11 @@ public class MaandInvoice extends Invoice {
 
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
-            if (date.getYear() == jaar && date.getMonthValue() == maand) {
-                Invoice.printLinesToPdf(contentStream, date, dag);
 
-                totaalGeredenKiloMeters += client.getKiloMeters();
-                totaalGewerkteUren += dag.getGewerkteUren();
-            }
+            Invoice.printLinesToPdf(contentStream, date, dag);
+
+            totaalGeredenKiloMeters += client.getKiloMeters();
+            totaalGewerkteUren += dag.getGewerkteUren();
         }
 
         contentStream.showText("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
@@ -35,16 +33,12 @@ public class MaandInvoice extends Invoice {
     }
 
     @Override
-    public void addClient(PDPageContentStream contentStream, Client client) throws IOException {
-        contentStream.showText("Client: " + client.getClientNaam());
-        contentStream.newLine();
+    void addClient(PDPageContentStream contentStream, Client client) throws IOException {
 
     }
 
     @Override
-    public void addProject(PDPageContentStream contentStream, Project project) throws IOException {
-        contentStream.showText("Project: " + project.getProjectNaam());
-        contentStream.newLine();
-        contentStream.newLine();
+    void addProject(PDPageContentStream contentStream, Project project) throws IOException {
+
     }
 }

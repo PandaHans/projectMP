@@ -7,12 +7,14 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
+
+//Template Method Pattern
 public class JaarInvoice extends Invoice {
     @Override
     public void addDagen(PDPageContentStream contentStream, Client client, Project project, int maand,int jaar) throws IOException {
-        List<Dag> dagen = project.getDagen();
+        ArrayList<Dag> dagen = project.getDagen();
 
         float totaalGewerkteUren = 0;
         float totaalGeredenKiloMeters = 0;
@@ -20,13 +22,7 @@ public class JaarInvoice extends Invoice {
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar) {
-                contentStream.showText("Datum: " + date);
-                contentStream.newLine();
-                contentStream.showText("Gewerkte uren: " + dag.getGewerkteUren());
-                contentStream.newLine();
-                contentStream.showText("Omschrijving: " + dag.getOmschrijving());
-                contentStream.newLine();
-                contentStream.newLine();
+                Invoice.printLinesToPdf(contentStream, date, dag);
 
                 totaalGeredenKiloMeters += client.getKiloMeters();
                 totaalGewerkteUren += dag.getGewerkteUren();

@@ -9,6 +9,7 @@ import com.mp.projectmp.dag.DagFactory;
 
 import com.mp.projectmp.data.DataWriter;
 import com.mp.projectmp.helper.UserInput;
+import com.mp.projectmp.invoice.DagList;
 import com.mp.projectmp.invoice.Invoice;
 import com.mp.projectmp.invoice.JaarInvoice;
 import com.mp.projectmp.invoice.MaandInvoice;
@@ -57,6 +58,7 @@ public class Start{
         System.out.println("3. Voeg project toe");
         System.out.println("4. Genereer een maand overzicht");
         System.out.println("5. Genereer een jaar overzicht");
+        System.out.println("6. Genereer een dagen overzicht");
         System.out.println("0. Exit");
         System.out.println("Maak een keuze: ");
         System.out.println("----------------------------");
@@ -80,6 +82,9 @@ public class Start{
                 break;
             case "5":
                 generateYearlyInvoice(client, project);
+                break;
+            case "6":
+                generateDayList(client, project);
                 break;
             case "0":
                 System.out.println("Uitloggen...");
@@ -129,10 +134,15 @@ public class Start{
     }
     private static void generateMonthlyInvoice(Client client, Project project) throws IOException {
         Invoice maandInvoice = new MaandInvoice();
+
         maandInvoice.createInvoicePDF(client, project);
     }
     private static void generateYearlyInvoice(Client client, Project project) throws IOException {
         Invoice jaarInvoice = new JaarInvoice();
         jaarInvoice.createInvoicePDF(client, project);
+    }
+    private static void generateDayList(Client client, Project project) throws IOException {
+        Invoice dagList = new DagList();
+        dagList.createInvoicePDF(client, project);
     }
 }

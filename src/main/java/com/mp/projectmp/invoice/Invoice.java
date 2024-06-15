@@ -2,6 +2,7 @@ package com.mp.projectmp.invoice;
 
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Project;
+import com.mp.projectmp.dag.Dag;
 import com.mp.projectmp.helper.UserInput;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -11,7 +12,9 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
+//Template Method Pattern
 public abstract class Invoice {
     UserInput userInput = new UserInput();
 
@@ -37,6 +40,7 @@ public abstract class Invoice {
                 int maand = userInput.getMaand();
                 int jaar = userInput.getJaar();
                 addDagen(contentStream, client,project, maand, jaar);
+
             }
 
             contentStream.endText();
@@ -61,5 +65,15 @@ public abstract class Invoice {
     }
     boolean wantsProject() {
         return true;
+    }
+
+    public static void printLinesToPdf(PDPageContentStream contentStream, LocalDate date, Dag dag) throws IOException {
+        contentStream.showText("Datum: " + date);
+        contentStream.newLine();
+        contentStream.showText("Gewerkte uren: " + dag.getGewerkteUren());
+        contentStream.newLine();
+        contentStream.showText("Omschrijving: " + dag.getOmschrijving());
+        contentStream.newLine();
+        contentStream.newLine();
     }
 }
