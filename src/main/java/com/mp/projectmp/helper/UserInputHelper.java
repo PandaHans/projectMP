@@ -7,10 +7,10 @@ import com.mp.projectmp.base.Project;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class UserInput {
+public class UserInputHelper implements UserInputInterface{
     private final Scanner scanner;
 
-    public UserInput() {
+    public UserInputHelper() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -91,4 +91,5 @@ public class UserInput {
             return null;
         }
     }
+
 }

@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class DataReader {
+public class DataReader implements DataReaderInterface {
     public Gebruiker readData() {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"))) {
             Gebruiker gebruiker = (Gebruiker) input.readObject();

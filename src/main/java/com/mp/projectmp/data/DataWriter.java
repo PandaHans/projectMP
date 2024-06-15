@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class DataWriter {
+public class DataWriter implements DataWriterInterface {
     public void writeData(Gebruiker gebruiker) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("data.dat"))) {
             output.writeObject(gebruiker);

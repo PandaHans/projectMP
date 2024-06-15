@@ -3,13 +3,23 @@ package com.mp.projectmp.invoice;
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Project;
 import com.mp.projectmp.dag.Dag;
+import com.mp.projectmp.helper.PrintHelper;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//Template Method Pattern
 public class DagList extends Invoice {
+
+    //nu worden er geen clieenten en projecten toegevoegd
+    boolean wantsClient() {
+        return false;
+    }
+    boolean wantsProject() {
+        return false;
+    }
 
     public void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException {
         ArrayList<Dag> dagen = project.getDagen();
@@ -20,7 +30,7 @@ public class DagList extends Invoice {
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
 
-            Invoice.printLinesToPdf(contentStream, date, dag);
+            PrintHelper.printLinesToPdf(contentStream, date, dag);
 
             totaalGeredenKiloMeters += client.getKiloMeters();
             totaalGewerkteUren += dag.getGewerkteUren();
@@ -33,12 +43,10 @@ public class DagList extends Invoice {
     }
 
     @Override
-    void addClient(PDPageContentStream contentStream, Client client) throws IOException {
-
+    void addClient(PDPageContentStream contentStream, Client client){
     }
-
     @Override
-    void addProject(PDPageContentStream contentStream, Project project) throws IOException {
+    void addProject(PDPageContentStream contentStream, Project project){
 
     }
 }

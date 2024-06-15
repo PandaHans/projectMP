@@ -3,6 +3,7 @@ package com.mp.projectmp.invoice;
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Project;
 import com.mp.projectmp.dag.Dag;
+import com.mp.projectmp.helper.PrintHelper;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class MaandInvoice extends Invoice {
         for (Dag dag : dagen) {
             LocalDate date = dag.getSavedDate();
             if (date.getYear() == jaar && date.getMonthValue() == maand) {
-                Invoice.printLinesToPdf(contentStream, date, dag);
+                PrintHelper.printLinesToPdf(contentStream, date, dag);
 
                 totaalGeredenKiloMeters += client.getKiloMeters();
                 totaalGewerkteUren += dag.getGewerkteUren();

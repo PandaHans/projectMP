@@ -2,8 +2,7 @@ package com.mp.projectmp.invoice;
 
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Project;
-import com.mp.projectmp.dag.Dag;
-import com.mp.projectmp.helper.UserInput;
+import com.mp.projectmp.helper.UserInputHelper;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -12,11 +11,10 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 //Template Method Pattern
 public abstract class Invoice {
-    UserInput userInput = new UserInput();
+    UserInputHelper userInputHelper = new UserInputHelper();
 
     final public void createInvoicePDF(Client client, Project project) throws IOException {
         PDDocument document = new PDDocument();
@@ -37,8 +35,8 @@ public abstract class Invoice {
                 addProject(contentStream, project);
             }
             if (wantsDagen()) {
-                int maand = userInput.getMaand();
-                int jaar = userInput.getJaar();
+                int maand = userInputHelper.getMaand();
+                int jaar = userInputHelper.getJaar();
                 addDagen(contentStream, client,project, maand, jaar);
 
             }
@@ -57,6 +55,7 @@ public abstract class Invoice {
     abstract void addClient(PDPageContentStream contentStream, Client client) throws IOException;
     abstract void addProject(PDPageContentStream contentStream, Project project) throws IOException;
 
+    //hooks overwrite als je bv geen dagen wilt
     boolean wantsDagen() {
         return true;
     }
@@ -67,13 +66,5 @@ public abstract class Invoice {
         return true;
     }
 
-    public static void printLinesToPdf(PDPageContentStream contentStream, LocalDate date, Dag dag) throws IOException {
-        contentStream.showText("Datum: " + date);
-        contentStream.newLine();
-        contentStream.showText("Gewerkte uren: " + dag.getGewerkteUren());
-        contentStream.newLine();
-        contentStream.showText("Omschrijving: " + dag.getOmschrijving());
-        contentStream.newLine();
-        contentStream.newLine();
-    }
+
 }

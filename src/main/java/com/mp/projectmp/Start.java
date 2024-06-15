@@ -8,7 +8,9 @@ import com.mp.projectmp.dag.Dag;
 import com.mp.projectmp.dag.DagFactory;
 
 import com.mp.projectmp.data.DataWriter;
-import com.mp.projectmp.helper.UserInput;
+import com.mp.projectmp.data.DataWriterInterface;
+import com.mp.projectmp.helper.UserInputHelper;
+import com.mp.projectmp.helper.UserInputInterface;
 import com.mp.projectmp.invoice.DagList;
 import com.mp.projectmp.invoice.Invoice;
 import com.mp.projectmp.invoice.JaarInvoice;
@@ -18,64 +20,67 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Start{
-    public static void startProgram(Gebruiker gebruiker) throws IOException {
-        DataWriter dataWriter = new DataWriter();
-        UserInput userInput = new UserInput();
+public class Start {
+    private final DataWriterInterface dataWriter;
+    private final UserInputInterface userInput;
+
+    public Start(DataWriterInterface dataWriter, UserInputInterface userInput) {
+        this.dataWriter = dataWriter;
+        this.userInput = userInput;
+    }
+    public void startProgram(Gebruiker gebruiker) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        Client client = checkForClient(gebruiker, dataWriter, userInput);
-        Project project = checkForProject(gebruiker, client, dataWriter, userInput);
+        Client client = checkForClient(gebruiker);
+        Project project = checkForProject(gebruiker, client);
 
         while (true) {
             printMenu();
             String choice = scanner.nextLine();
-            handleChoice(choice, gebruiker, client, project, dataWriter, userInput);
+            handleChoice(choice, gebruiker, client, project);
         }
     }
 
-    private static Client checkForClient(Gebruiker gebruiker, DataWriter dataWriter, UserInput userInput){
-        if (gebruiker.getClienten().isEmpty()){
-            System.out.println("Er zijn geen clienten gevonden maak er eerst een.");
-            addClient(gebruiker, dataWriter, userInput);
+    private Client checkForClient(Gebruiker gebruiker) {
+        if (gebruiker.getClienten().isEmpty()) {
+            System.out.println("Er zijn geen clienten gevonden. Maak er eerst een.");
+            addClient(gebruiker);
         }
         return userInput.selectClient(gebruiker);
     }
-    private static Project checkForProject(Gebruiker gebruiker, Client client, DataWriter dataWriter, UserInput userInput){
-        if (client.getProjecten().isEmpty()){
-            System.out.println("Er zijn geen projecten gevonden maak er eerst een.");
-            addProject(gebruiker, client, dataWriter, userInput);
+    private Project checkForProject(Gebruiker gebruiker, Client client) {
+        if (client.getProjecten().isEmpty()) {
+            System.out.println("Er zijn geen projecten gevonden. Maak er eerst een.");
+            addProject(gebruiker, client);
         }
         return userInput.selectProject(client);
     }
 
-    private static void printMenu() {
+    private void printMenu() {
         System.out.println("----------------------------");
         System.out.println("Kies een optie:");
-        System.out.println("1. Voeg dag toe");
-        System.out.println("1.1 Voeg snel een dag toe (Uren: 6, Datum: Vandaag, Omschrijving: Super leuk)");
+        System.out.println("1. Voeg dagen toe");
         System.out.println("2. Voeg client toe");
         System.out.println("3. Voeg project toe");
         System.out.println("4. Genereer een maand overzicht");
         System.out.println("5. Genereer een jaar overzicht");
-        System.out.println("6. Genereer een dagen overzicht");
         System.out.println("0. Exit");
         System.out.println("Maak een keuze: ");
         System.out.println("----------------------------");
     }
-    private static void handleChoice(String choice, Gebruiker gebruiker, Client client, Project project, DataWriter dataWriter, UserInput userInput) throws IOException {
+    private void handleChoice(String choice, Gebruiker gebruiker, Client client, Project project) throws IOException {
         switch (choice) {
             case "1":
-                addNewDay(gebruiker, project, dataWriter, userInput );
+                addDay(gebruiker, project);
                 break;
             case "1.1":
-                addFastDay(gebruiker, project, dataWriter);
+                addFastDay(gebruiker, project);
                 break;
             case "2":
-                addClient(gebruiker, dataWriter, userInput);
+                addClient(gebruiker);
                 break;
             case "3":
-                addProject(gebruiker, client, dataWriter, userInput);
+                addProject(gebruiker, client);
                 break;
             case "4":
                 generateMonthlyInvoice(client, project);
@@ -88,19 +93,19 @@ public class Start{
                 break;
             case "0":
                 System.out.println("Uitloggen...");
-                break;
+                return;
             default:
-                System.out.println("Probeer opnieuw.");
+                System.out.println("Ongeldige keuze. Probeer opnieuw.");
         }
     }
 
-    private static void addNewDay(Gebruiker gebruiker, Project project, DataWriter dataWriter, UserInput userInput) {
+    private void addDay(Gebruiker gebruiker, Project project) {
         DagFactory dagFactory = new DagFactory();
         float gewerkteUren = userInput.getFloatInput("Hoeveel uren heb je gewerkt: ");
         String omschrijving = userInput.getStringInput("Geef een kleine omschrijving van je dag: ");
         LocalDate savedDate = userInput.getDate();
 
-        Dag nieuwedag = dagFactory.maakDag("N");
+        Dag nieuwedag = dagFactory.maakDag("A");
         nieuwedag.setOmschrijving(omschrijving);
         nieuwedag.setGewerkteUren(gewerkteUren);
         nieuwedag.setSavedDate(savedDate);
@@ -108,40 +113,39 @@ public class Start{
         project.addDag(nieuwedag);
         dataWriter.writeData(gebruiker);
     }
-    private static void addFastDay(Gebruiker gebruiker, Project project, DataWriter dataWriter) {
+    private void addFastDay(Gebruiker gebruiker, Project project){
         DagFactory dagFactory = new DagFactory();
-        Dag snelleDag = dagFactory.maakDag("S");
+        Dag nieuwedag = dagFactory.maakDag("S");
 
-        System.out.println(snelleDag.getSavedDate());
-
-        project.addDag(snelleDag);
+        project.addDag(nieuwedag);
         dataWriter.writeData(gebruiker);
     }
-    private static void addClient(Gebruiker gebruiker, DataWriter dataWriter, UserInput userInput) {
+
+    private void addClient(Gebruiker gebruiker) {
         System.out.println("Voer client informatie in:");
         String naam = userInput.getStringInput("Naam: ");
-        float kilometers = userInput.getFloatInput("Hoe ver weg is het?(in km): ");
+        float kilometers = userInput.getFloatInput("Hoe ver weg is het?: ");
 
         gebruiker.addClient(new Client(naam, kilometers));
         dataWriter.writeData(gebruiker);
     }
-    private static void addProject(Gebruiker gebruiker, Client client, DataWriter dataWriter, UserInput userInput) {
+    private void addProject(Gebruiker gebruiker, Client client) {
         String projectNaam = userInput.getStringInput("Voer het project naam in: ");
         float uurloon = userInput.getFloatInput("Voer uurloon in: ");
 
         client.addProject(new Project(projectNaam, uurloon));
         dataWriter.writeData(gebruiker);
     }
-    private static void generateMonthlyInvoice(Client client, Project project) throws IOException {
-        Invoice maandInvoice = new MaandInvoice();
 
+    private void generateMonthlyInvoice(Client client, Project project) throws IOException {
+        Invoice maandInvoice = new MaandInvoice();
         maandInvoice.createInvoicePDF(client, project);
     }
-    private static void generateYearlyInvoice(Client client, Project project) throws IOException {
+    private void generateYearlyInvoice(Client client, Project project) throws IOException {
         Invoice jaarInvoice = new JaarInvoice();
         jaarInvoice.createInvoicePDF(client, project);
     }
-    private static void generateDayList(Client client, Project project) throws IOException {
+    private void generateDayList(Client client, Project project) throws IOException {
         Invoice dagList = new DagList();
         dagList.createInvoicePDF(client, project);
     }
