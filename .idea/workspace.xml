@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="minior update for comments">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataReaderInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataWriterInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/PrintHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/data/DataWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +75,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/joost/IdeaProjects/projectMP/lib",
+    "last_opened_file_path": "C:/Users/joost/IdeaProjects/projectMP",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,7 +94,7 @@
       <recent name="C:\Users\joost\IdeaProjects\projectMP\src\main\java\com\mp\projectmp" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AddDagTest">
     <configuration name="AddDagTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projectMP" />
       <option name="PACKAGE_NAME" value="" />
@@ -165,8 +157,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -181,6 +173,7 @@
       <workItem from="1718382862794" duration="10829000" />
       <workItem from="1718397871619" duration="15426000" />
       <workItem from="1718454765739" duration="8029000" />
+      <workItem from="1718531507895" duration="7070000" />
     </task>
     <task id="LOCAL-00001" summary="minior update for comments">
       <option name="closed" value="true" />

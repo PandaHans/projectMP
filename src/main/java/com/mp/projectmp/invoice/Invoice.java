@@ -48,7 +48,7 @@ public abstract class Invoice {
             document.close();
         }
 
-        System.out.println("PDF invoice generated successfully.");
+        System.out.println("PDF gemaakt.");
     }
 
     abstract void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException;

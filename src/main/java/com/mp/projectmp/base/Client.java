@@ -17,7 +17,6 @@ public class Client implements Serializable {
         this.kiloMeters = kiloMeters;
     }
 
-
     public void setClientNaam(String clientNaam) {
         this.clientNaam = clientNaam;
     }

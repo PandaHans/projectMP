@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 //Template Method Pattern
 public class MaandInvoice extends Invoice {
+
     @Override
     public void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException {
         ArrayList<Dag> dagen = project.getDagen();

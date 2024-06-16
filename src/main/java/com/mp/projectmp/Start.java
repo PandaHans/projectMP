@@ -60,10 +60,12 @@ public class Start {
         System.out.println("----------------------------");
         System.out.println("Kies een optie:");
         System.out.println("1. Voeg dagen toe");
+        System.out.println("1.1 Voeg snel een dag toe (Uur gewerkt: 6, Datum: Vandaag, Omschrijving: Super leuk)");
         System.out.println("2. Voeg client toe");
         System.out.println("3. Voeg project toe");
         System.out.println("4. Genereer een maand overzicht");
         System.out.println("5. Genereer een jaar overzicht");
+        System.out.println("6. Genereer een dagen overzicht");
         System.out.println("0. Exit");
         System.out.println("Maak een keuze: ");
         System.out.println("----------------------------");
