@@ -13,6 +13,7 @@ public class Gebruiker implements Serializable {
     public Gebruiker(String inlogNaam) {
         this.inlogNaam = inlogNaam;
     }
+
     public boolean isGebruiker(String inlogNaam) {
         return this.inlogNaam.equals(inlogNaam);
     }

@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="minior update for comments">
+    <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="making it look nicer">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/PrintHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/PrintHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +92,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.35632184",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "settings.editor.selected.configurable": "inlay.hints",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -94,7 +102,7 @@
       <recent name="C:\Users\joost\IdeaProjects\projectMP\src\main\java\com\mp\projectmp" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AddDagTest">
+  <component name="RunManager">
     <configuration name="AddDagTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projectMP" />
       <option name="PACKAGE_NAME" value="" />
@@ -146,8 +154,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GebruikerTest.testAddClient" />
         <item itemvalue="JUnit.AddDagTest" />
+        <item itemvalue="JUnit.GebruikerTest.testAddClient" />
         <item itemvalue="JUnit.AddDagTest.testDag_NegativeUren" />
         <item itemvalue="JUnit.AddDagTest.testDag_boven24" />
         <item itemvalue="JUnit.AddProjectTest.testAddProject_MCDC" />
@@ -173,7 +181,7 @@
       <workItem from="1718382862794" duration="10829000" />
       <workItem from="1718397871619" duration="15426000" />
       <workItem from="1718454765739" duration="8029000" />
-      <workItem from="1718531507895" duration="7070000" />
+      <workItem from="1718531507895" duration="14103000" />
     </task>
     <task id="LOCAL-00001" summary="minior update for comments">
       <option name="closed" value="true" />
@@ -183,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718456357644</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="making it look nicer">
+      <option name="closed" value="true" />
+      <created>1718539346009</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718539346009</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +208,23 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="minior update for comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="minior update for comments" />
+    <MESSAGE value="making it look nicer" />
+    <option name="LAST_COMMIT_MESSAGE" value="making it look nicer" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

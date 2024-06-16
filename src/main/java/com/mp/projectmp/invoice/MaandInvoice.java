@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 //Template Method Pattern
 public class MaandInvoice extends Invoice {
-
     @Override
     public void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException {
         ArrayList<Dag> dagen = project.getDagen();
@@ -34,6 +33,15 @@ public class MaandInvoice extends Invoice {
         contentStream.newLine();
         contentStream.showText("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
         contentStream.newLine();
+
+        if (project.getLoonType().getType().equals("Vasteprijs")) {
+            contentStream.showText("Totaal verdient: " + project.getLoonType().getLoon());
+            contentStream.newLine();
+        } else if (project.getLoonType().getType().equals("Uurloon")) {
+            contentStream.showText("Uurloon: " + project.getLoonType().getLoon());
+            contentStream.newLine();
+            contentStream.showText("Totaal verdient: " + project.getLoonType().getLoon() * totaalGeredenKiloMeters);
+        }
     }
 
     @Override

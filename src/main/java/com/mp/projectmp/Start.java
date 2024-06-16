@@ -2,15 +2,12 @@ package com.mp.projectmp;
 
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Gebruiker;
+import com.mp.projectmp.base.LoonType;
 import com.mp.projectmp.base.Project;
-
 import com.mp.projectmp.dag.Dag;
 import com.mp.projectmp.dag.DagFactory;
-
-import com.mp.projectmp.data.DataWriter;
 import com.mp.projectmp.data.DataWriterInterface;
 import com.mp.projectmp.helper.UserInputHelper;
-import com.mp.projectmp.helper.UserInputInterface;
 import com.mp.projectmp.invoice.DagList;
 import com.mp.projectmp.invoice.Invoice;
 import com.mp.projectmp.invoice.JaarInvoice;
@@ -20,11 +17,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import static com.mp.projectmp.helper.PrintHelper.printMenu;
+
 public class Start {
     private final DataWriterInterface dataWriter;
-    private final UserInputInterface userInput;
+    private final UserInputHelper userInput;
 
-    public Start(DataWriterInterface dataWriter, UserInputInterface userInput) {
+    public Start(DataWriterInterface dataWriter, UserInputHelper userInput) {
         this.dataWriter = dataWriter;
         this.userInput = userInput;
     }
@@ -56,20 +55,7 @@ public class Start {
         return userInput.selectProject(client);
     }
 
-    private void printMenu() {
-        System.out.println("----------------------------");
-        System.out.println("Kies een optie:");
-        System.out.println("1. Voeg dagen toe");
-        System.out.println("1.1 Voeg snel een dag toe (Uur gewerkt: 6, Datum: Vandaag, Omschrijving: Super leuk)");
-        System.out.println("2. Voeg client toe");
-        System.out.println("3. Voeg project toe");
-        System.out.println("4. Genereer een maand overzicht");
-        System.out.println("5. Genereer een jaar overzicht");
-        System.out.println("6. Genereer een dagen overzicht");
-        System.out.println("0. Exit");
-        System.out.println("Maak een keuze: ");
-        System.out.println("----------------------------");
-    }
+
     private void handleChoice(String choice, Gebruiker gebruiker, Client client, Project project) throws IOException {
         switch (choice) {
             case "1":
@@ -133,9 +119,9 @@ public class Start {
     }
     private void addProject(Gebruiker gebruiker, Client client) {
         String projectNaam = userInput.getStringInput("Voer het project naam in: ");
-        float uurloon = userInput.getFloatInput("Voer uurloon in: ");
+        LoonType loonType = userInput.kiesLoonType();
 
-        client.addProject(new Project(projectNaam, uurloon));
+        client.addProject(new Project(projectNaam, loonType));
         dataWriter.writeData(gebruiker);
     }
 

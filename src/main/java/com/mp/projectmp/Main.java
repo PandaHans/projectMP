@@ -5,7 +5,6 @@ import com.mp.projectmp.data.DataReader;
 import com.mp.projectmp.data.DataWriter;
 import com.mp.projectmp.data.DataWriterInterface;
 import com.mp.projectmp.helper.UserInputHelper;
-import com.mp.projectmp.helper.UserInputInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         DataReader dataReader = new DataReader();
 
-        DataWriterInterface dataWriter = new DataWriter(); // Concrete implementation
-        UserInputInterface userInput = new UserInputHelper(); // Concrete implementation
+        DataWriterInterface dataWriter = new DataWriter();
+        UserInputHelper userInput = new UserInputHelper();
 
         Start start = new Start(dataWriter, userInput);
 

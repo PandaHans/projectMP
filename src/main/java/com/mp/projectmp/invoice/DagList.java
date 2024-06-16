@@ -13,7 +13,7 @@ import java.util.ArrayList;
 //Template Method Pattern
 public class DagList extends Invoice {
 
-    //nu worden er geen clienten en projecten toegevoegd
+    //nu worden er geen clieenten en projecten toegevoegd
     boolean wantsClient() {
         return false;
     }
@@ -21,7 +21,6 @@ public class DagList extends Invoice {
         return false;
     }
 
-    @Override
     public void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException {
         ArrayList<Dag> dagen = project.getDagen();
 

@@ -2,12 +2,14 @@ package com.mp.projectmp.helper;
 
 import com.mp.projectmp.base.Client;
 import com.mp.projectmp.base.Gebruiker;
+import com.mp.projectmp.base.LoonType;
 import com.mp.projectmp.base.Project;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class UserInputHelper implements UserInputInterface{
+public class UserInputHelper{
     private final Scanner scanner;
 
     public UserInputHelper() {
@@ -32,13 +34,7 @@ public class UserInputHelper implements UserInputInterface{
 
     public int getIntInput(String prompt) {
         System.out.print(prompt);
-        while (!scanner.hasNextInt()) {
-            System.out.print("Invalid input. " + prompt);
-            scanner.next();
-        }
-        int input = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-        return input;
+        return scanner.nextInt();
     }
     public String getStringInput(String prompt) {
         System.out.print(prompt);
@@ -92,4 +88,28 @@ public class UserInputHelper implements UserInputInterface{
         }
     }
 
+    public LoonType kiesLoonType(){
+        System.out.println("Kies loontype: ");
+
+        int choice = getIntInput("Uw keuze: ");
+        LoonType loonType = null;
+
+        switch (choice) {
+            case 1:
+                loonType = LoonType.UURLOON;
+                break;
+            case 2:
+                loonType = LoonType.VASTEPRIJS;
+                break;
+            // Add other cases for different wage types
+            default:
+                System.out.println("Ongeldige keuze");
+        }
+
+        if (loonType != null) {
+            float loon = getFloatInput("Voer het loonbedrag in: ");
+            loonType = new LoonType(loonType.getType(), loon);
+        }
+        return loonType;
+    }
 }

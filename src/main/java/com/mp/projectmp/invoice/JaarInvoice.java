@@ -32,8 +32,18 @@ public class JaarInvoice extends Invoice {
 
         contentStream.showText("Totaal gereden kilometers: " + totaalGeredenKiloMeters);
         contentStream.newLine();
+
         contentStream.showText("Totaal aantal gewerkte uren: " + totaalGewerkteUren);
         contentStream.newLine();
+
+        if (project.getLoonType().getType().equals("Vasteprijs")) {
+            contentStream.showText("Totaal verdient: " + project.getLoonType().getLoon());
+            contentStream.newLine();
+        } else if (project.getLoonType().getType().equals("Uurloon")) {
+            contentStream.showText("Uurloon: " + project.getLoonType().getLoon());
+            contentStream.newLine();
+            contentStream.showText("Totaal verdient: " + project.getLoonType().getLoon() * totaalGeredenKiloMeters);
+        }
     }
 
     @Override

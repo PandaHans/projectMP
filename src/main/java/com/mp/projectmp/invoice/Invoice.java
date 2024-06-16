@@ -37,10 +37,8 @@ public abstract class Invoice {
             if (wantsDagen()) {
                 int maand = userInputHelper.getMaand();
                 int jaar = userInputHelper.getJaar();
-                addDagen(contentStream, client,project, maand, jaar);
-
+                addDagen(contentStream, client, project, maand, jaar);
             }
-
             contentStream.endText();
         } finally {
             contentStream.close();
@@ -48,8 +46,9 @@ public abstract class Invoice {
             document.close();
         }
 
-        System.out.println("PDF gemaakt.");
+        System.out.println("PDF gemaakt");
     }
+
 
     abstract void addDagen(PDPageContentStream contentStream, Client client,Project project, int maand, int jaar) throws IOException;
     abstract void addClient(PDPageContentStream contentStream, Client client) throws IOException;
