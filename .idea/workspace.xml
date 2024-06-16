@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="making it look nicer">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" afterDir="false" />
+    <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="added primitive obsession">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Start.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/PrintHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/PrintHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/JaarInvoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/MaandInvoice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +172,7 @@
       <workItem from="1718382862794" duration="10829000" />
       <workItem from="1718397871619" duration="15426000" />
       <workItem from="1718454765739" duration="8029000" />
-      <workItem from="1718531507895" duration="14103000" />
+      <workItem from="1718531507895" duration="14808000" />
     </task>
     <task id="LOCAL-00001" summary="minior update for comments">
       <option name="closed" value="true" />
@@ -199,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718539346009</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added primitive obsession">
+      <option name="closed" value="true" />
+      <created>1718546382238</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718546382238</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +208,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="minior update for comments" />
     <MESSAGE value="making it look nicer" />
-    <option name="LAST_COMMIT_MESSAGE" value="making it look nicer" />
+    <MESSAGE value="added primitive obsession" />
+    <option name="LAST_COMMIT_MESSAGE" value="added primitive obsession" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

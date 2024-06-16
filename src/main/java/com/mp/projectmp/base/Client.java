@@ -31,29 +31,27 @@ public class Client implements Serializable {
         return projecten;
     }
     public void addProject(Project project) {
-        // check of de naam leeg is
         if (project == null || project.getProjectNaam().isEmpty()) {
-            System.out.println("Project naam mag niet leeg zijn.");
+            System.out.println("Projectnaam mag niet leeg zijn.");
             return;
         }
 
-        //check of uurloon boven de 0 is
-        if (project.getUurLoon() <= 0) {
-            System.out.println("Uurloon moet groter zijn dan 0.");
+        if (project.getLoonType().getLoon() <= 0) {
+            System.out.println("Loon moet groter zijn dan 0.");
             return;
         }
 
-        // kijk of project al bestaat
-        for (Project bestaandProject : projecten) {
-            if (bestaandProject.getProjectNaam().equals(project.getProjectNaam())) {
+        for (Project existingProject : projecten) {
+            if (existingProject.getProjectNaam().equals(project.getProjectNaam())) {
                 System.out.println("Project bestaat al.");
                 return;
-            }else {
-                projecten.add(project);
-                System.out.println("Project toegevoegd!");
             }
         }
+
+        projecten.add(project);
+        System.out.println("Project toegevoegd!");
     }
+
     public String getProjectNaam(int i) {
         return projecten.get(i).getProjectNaam();
     }

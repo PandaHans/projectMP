@@ -1,6 +1,12 @@
 package com.mp.projectmp.base;
 
-public class LoonType {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class LoonType implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     public static final LoonType UURLOON = new LoonType("Uurloon");
     public static final LoonType VASTEPRIJS = new LoonType("Vasteprijs");
 

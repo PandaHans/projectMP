@@ -91,6 +91,9 @@ public class UserInputHelper{
     public LoonType kiesLoonType(){
         System.out.println("Kies loontype: ");
 
+        System.out.println("1. uurloon");
+        System.out.println("2. vasteprijs");
+
         int choice = getIntInput("Uw keuze: ");
         LoonType loonType = null;
 
@@ -105,6 +108,7 @@ public class UserInputHelper{
             default:
                 System.out.println("Ongeldige keuze");
         }
+        // error als je 3 bv geeft
 
         if (loonType != null) {
             float loon = getFloatInput("Voer het loonbedrag in: ");

@@ -47,3 +47,5 @@ public class Main {
         }
     }
 }
+
+// error in loontype writing to file
