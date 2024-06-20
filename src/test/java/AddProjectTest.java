@@ -1,141 +1,101 @@
 import com.mp.projectmp.base.Client;
+import com.mp.projectmp.base.LoonType;
 import com.mp.projectmp.base.Project;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddProjectTest {
-
-    //random tests
+    // test Equivalentieklassen
     @Test
-    public void testAddProjectValidName() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project = new Project("Project X", 50.0f);
+    public void testAddProject() {
+        Client client = new Client("testclient", 10.0f);
+        Project project = new Project("testproject", new LoonType("Uurloon", 50.0f));
         client.addProject(project);
         assertTrue(client.getProjecten().contains(project));
     }
 
     @Test
-    public void testAddProjectEmptyName() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project = new Project("", 50.0f);
+    public void testAddProjectLegeNaam() {
+        Client client = new Client("testclient", 10.0f);
+        Project project = new Project("", new LoonType("Uurloon", 50.0f));
+        client.addProject(project);
+        assertFalse(client.getProjecten().contains(project));
+    }
+    @Test
+    public void testAddProjectMinLoon() {
+        Client client = new Client("testclient", 10.0f);
+        Project project = new Project("testproject", new LoonType("Uurloon", -10.0f));
         client.addProject(project);
         assertFalse(client.getProjecten().contains(project));
     }
 
+    //test randwaarden
     @Test
-    public void testAddProjectDuplicateName() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project X", 60.0f);
-        client.addProject(project1);
-        client.addProject(project2);
-        assertEquals(1, client.getProjecten().size());
+    public void testAddProjectLoonRandwaarden() {
+        Client client = new Client("testclient", 10.0f);
+        Project Loon = new Project("testproject1", new LoonType("Uurloon", 0.0f));
+        Project Loonplusss = new Project("testproject2", new LoonType("Uurloon", 10.0f));
+        Project Loonplus = new Project("testproject3", new LoonType("Uurloon", .00000000000000000000000000000000001f));
+        Project LoonMin = new Project("testproject4", new LoonType("Uurloon", -.0000000000000000000000000000000001f));
+
+
+
+        client.addProject(Loon);
+        assertFalse(client.getProjecten().contains(Loon));
+
+        client.addProject(Loonplusss);
+        assertFalse(client.getProjecten().contains(Loon));
+
+        client.addProject(Loonplus);
+        assertTrue(client.getProjecten().contains(Loonplus));
+
+        client.addProject(LoonMin);
+        assertFalse(client.getProjecten().contains(LoonMin));
     }
 
-
-    //Coverage
-    //test CC Condition coverage door elke voorwaarde zowel waar als niet waar te maken.
+    // pairwise testing
     @Test
-    public void testAddProject_CC() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project Y", 60.0f);
-        Project projectEmpty = new Project("", 50.0f);
-        Project projectInvalidUurLoon = new Project("Project Z", -10.0f);
+    public void testAddProjectPairwise() {
+        Client client = new Client("testclient", 10.0f);
+        Project validProject = new Project("testproject1", new LoonType("Uurloon", 50.0f));
+        Project emptyProject = new Project("", new LoonType("Uurloon", 50.0f));
+        Project invalidLoon = new Project("testproject2", new LoonType("Uurloon", -10.0f));
+        Project duplicateProject = new Project("testproject3", new LoonType("Uurloon", 60.0f));
 
-        client.addProject(projectEmpty);
+        client.addProject(validProject);
+        assertTrue(client.getProjecten().contains(validProject));
 
-        client.addProject(projectInvalidUurLoon);
+        client.addProject(emptyProject);
+        assertFalse(client.getProjecten().contains(emptyProject));
 
-        client.addProject(project1);
-        client.addProject(project1);
+        client.addProject(invalidLoon);
+        assertFalse(client.getProjecten().contains(invalidLoon));
 
-        client.addProject(project2);
+        client.addProject(duplicateProject);
+        assertEquals(2, client.getProjecten().size());
     }
 
-    @Test
-    public void testAddProject_DC() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project Y", 60.0f);
-
-        client.addProject(project1);
-
-        client.addProject(project1);
-    }
-    @Test
-    public void testAddProject_CDC() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project Y", 60.0f);
-        Project projectEmpty = new Project("", 50.0f);
-        Project projectInvalidUurLoon = new Project("Project Z", -10.0f);
-
-        client.addProject(projectEmpty);
-
-        client.addProject(projectInvalidUurLoon);
-
-        client.addProject(project1);
-        client.addProject(project1);
-
-        client.addProject(project2);
-    }
-    @Test
-    public void testAddProject_MCC() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project Y", 60.0f);
-        Project projectEmpty = new Project("", 50.0f);
-        Project projectInvalidUurLoon = new Project("Project Z", -10.0f);
-
-        // Condition1 true, Condition2 false, Condition3 false
-        client.addProject(projectEmpty);
-
-        // Condition1 false, Condition2 true, Condition3 false
-        client.addProject(projectInvalidUurLoon);
-
-        // Condition1 false, Condition2 false, Condition3 true
-        client.addProject(project1);
-        client.addProject(project1);
-
-        // Condition1 false, Condition2 false, Condition3 false
-        client.addProject(project2);
-
-        // Condition1 true, Condition2 true, Condition3 false
-        client.getProjecten().clear();
-        client.addProject(projectEmpty);
-        client.addProject(projectInvalidUurLoon);
-    }
-
-
-    //MC/DC
-    //deze test dekt alle mogelijke paden om te testen
     @Test
     public void testAddProject_MCDC() {
-        Client client = new Client("John Doe", 10.0f);
-        Project project1 = new Project("Project X", 50.0f);
-        Project project2 = new Project("Project Y", 60.0f);
-        Project projectEmpty = new Project("", 50.0f);
-        Project projectNull = null;
-        Project projectInvalidUurLoon = new Project("Project Z", -10.0f);
+        Client client = new Client("testclient", 10.0f);
+        Project projectEmpty = new Project("", new LoonType("Uurloon", 50.0f));
+        Project projectInvalidLoon = new Project("testproject", new LoonType("Uurloon", -10.0f));
+        Project validProject = new Project("testproject", new LoonType("Uurloon", 50.0f));
+        Project duplicateProject = new Project("testproject", new LoonType("Uurloon", 60.0f));
 
-        // Voorwaarde 1 onwaar, Voorwaarde 2 onwaar, Voorwaarde 3 onwaar
-        client.addProject(project1);
-
-        // Voorwaarde 1 waar, Voorwaarde 2 onwaar, Voorwaarde 3 onwaar
         client.addProject(projectEmpty);
-        client.addProject(projectNull);
+        assertFalse(client.getProjecten().contains(projectEmpty));
 
-        // Voorwaarde 1 onwaar, Voorwaarde 2 waar, Voorwaarde 3 onwaar
-        client.addProject(projectInvalidUurLoon);
+        client.addProject(projectInvalidLoon);
+        assertFalse(client.getProjecten().contains(projectInvalidLoon));
 
-        // Voorwaarde 1 onwaar, Voorwaarde 2 onwaar, Voorwaarde 3 waar
-        client.addProject(project1);
-        client.addProject(project1);
+        client.addProject(validProject);
+        assertTrue(client.getProjecten().contains(validProject));
+        client.addProject(validProject);
+        assertEquals(1, client.getProjecten().size());
 
-        // Voorwaarde 1 waar, Voorwaarde 2 waar, Voorwaarde 3 onwaar
-        client.addProject(projectEmpty);
-        client.addProject(projectInvalidUurLoon);
+        client.addProject(duplicateProject);
+        assertEquals(1, client.getProjecten().size());
     }
 }

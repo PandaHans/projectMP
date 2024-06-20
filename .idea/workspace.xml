@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="da34da20-ff01-49c4-91d7-d5e62c243ed1" name="Changes" comment="added primitive obsession">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/Gebruiker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/base/LoonType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mp/projectmp/helper/UserInputInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AddDagTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AddProjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AddProjectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GebruikerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +67,8 @@
     "JUnit.AddDagTest.testDag_NegativeUren.executor": "Run",
     "JUnit.AddDagTest.testDag_boven24.executor": "Run",
     "JUnit.AddProjectTest.executor": "Run",
+    "JUnit.AddProjectTest.testAddProjectLoonRandwaarden.executor": "Run",
+    "JUnit.AddProjectTest.testAddProjectPairwise.executor": "Run",
     "JUnit.AddProjectTest.testAddProject_CC.executor": "Run",
     "JUnit.AddProjectTest.testAddProject_MCDC.executor": "Run",
     "JUnit.ClientTest.executor": "Run",
@@ -93,7 +99,7 @@
       <recent name="C:\Users\joost\IdeaProjects\projectMP\src\main\java\com\mp\projectmp" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AddProjectTest">
     <configuration name="AddDagTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projectMP" />
       <option name="PACKAGE_NAME" value="" />
@@ -103,21 +109,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddDagTest.testDag_NegativeUren" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AddProjectTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projectMP" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="AddDagTest" />
-      <option name="METHOD_NAME" value="testDag_NegativeUren" />
+      <option name="MAIN_CLASS_NAME" value="AddProjectTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AddProjectTest.testAddProjectLoonRandwaarden" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="projectMP" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AddProjectTest" />
+      <option name="METHOD_NAME" value="testAddProjectLoonRandwaarden" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddDagTest.testDag_boven24" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AddProjectTest.testAddProjectPairwise" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projectMP" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="AddDagTest" />
-      <option name="METHOD_NAME" value="testDag_boven24" />
+      <option name="MAIN_CLASS_NAME" value="AddProjectTest" />
+      <option name="METHOD_NAME" value="testAddProjectPairwise" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,23 +148,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GebruikerTest.testAddClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="projectMP" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GebruikerTest" />
-      <option name="METHOD_NAME" value="testAddClient" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AddDagTest" />
-        <item itemvalue="JUnit.GebruikerTest.testAddClient" />
-        <item itemvalue="JUnit.AddDagTest.testDag_NegativeUren" />
-        <item itemvalue="JUnit.AddDagTest.testDag_boven24" />
+        <item itemvalue="JUnit.AddProjectTest" />
         <item itemvalue="JUnit.AddProjectTest.testAddProject_MCDC" />
+        <item itemvalue="JUnit.AddProjectTest.testAddProjectPairwise" />
+        <item itemvalue="JUnit.AddProjectTest.testAddProjectLoonRandwaarden" />
+        <item itemvalue="JUnit.AddDagTest" />
       </list>
     </recent_temporary>
   </component>
@@ -173,6 +178,9 @@
       <workItem from="1718397871619" duration="15426000" />
       <workItem from="1718454765739" duration="8029000" />
       <workItem from="1718531507895" duration="14808000" />
+      <workItem from="1718560089792" duration="2696000" />
+      <workItem from="1718564493446" duration="89000" />
+      <workItem from="1718565359597" duration="4388000" />
     </task>
     <task id="LOCAL-00001" summary="minior update for comments">
       <option name="closed" value="true" />
@@ -219,10 +227,14 @@
           <line>64</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mp/projectmp/invoice/DagList.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="15" />
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/AddProjectTest.java</url>
+          <line>34</line>
+          <properties class="AddProjectTest" method="testAddProjectLoonRandwaarden">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

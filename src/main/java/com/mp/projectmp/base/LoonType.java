@@ -13,7 +13,7 @@ public class LoonType implements Serializable {
     private String type;
     private float loon;
 
-    private LoonType(String type) {
+    public LoonType(String type) {
         this.type = type;
     }
 

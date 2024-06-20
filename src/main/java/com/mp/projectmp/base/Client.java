@@ -37,12 +37,12 @@ public class Client implements Serializable {
         }
 
         if (project.getLoonType().getLoon() <= 0) {
-            System.out.println("Loon moet groter zijn dan 0.");
+            System.out.println("Loon mag niet onder 0 liggen.");
             return;
         }
 
-        for (Project existingProject : projecten) {
-            if (existingProject.getProjectNaam().equals(project.getProjectNaam())) {
+        for (Project project1 : projecten) {
+            if (project1.getProjectNaam().equals(project.getProjectNaam())) {
                 System.out.println("Project bestaat al.");
                 return;
             }

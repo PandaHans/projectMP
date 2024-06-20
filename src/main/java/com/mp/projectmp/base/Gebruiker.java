@@ -33,22 +33,22 @@ public class Gebruiker implements Serializable {
         return clienten;
     }
     public void addClient(Client client) {
-        // Validate client
-        if (client == null || client.getClientNaam().isEmpty() || client.getKiloMeters() <= 0) {
-            System.out.println("Clientgegevens zijn ongeldig.");
+        if (client.getClientNaam().isEmpty()) {
+            System.out.println("Clientgegevens bestaan niet.");
             return;
         }
-
-
-        // Check if client already exists
-        for (Client existingClient : clienten) {
-            if (existingClient.getClientNaam().equals(client.getClientNaam())) {
+        if (client.getKiloMeters() <= 0){
+            System.out.println("Kilometers mogen niet onder de 0 liggen.");
+            return;
+        }
+        //vheck of al bestaat
+        for (Client client1 : clienten) {
+            if (client1.getClientNaam().equals(client.getClientNaam())) {
                 System.out.println("Client bestaat al.");
                 return;
             }
         }
 
-        // Add client
         clienten.add(client);
         System.out.println("Client toegevoegd!");
     }
